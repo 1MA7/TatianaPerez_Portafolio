@@ -1,0 +1,1956 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portafolio Ejecutivo | Tatiana Kassandra Pérez Gonzales</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Plus Jakarta Sans (Titulares/Métricas) & Inter (Cuerpo/Tablas) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navy: {
+                            950: '#0F152B',
+                            900: '#151C3B',
+                            800: '#1E2650',
+                            700: '#2A356B'
+                        },
+                        planetary: {
+                            600: '#2563EB',
+                            500: '#398CCB',
+                            400: '#5DA6DE',
+                            100: '#EBF4FB',
+                            50: '#F4F7FA'
+                        },
+                        solar: {
+                            600: '#D97706',
+                            500: '#F9B104',
+                            100: '#FEF3C7'
+                        }
+                    },
+                    fontFamily: {
+                        display: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        sans: ['"Inter"', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Estilos Base y Sistema de Diseño Editorial */
+        body {
+            background-color: #F4F7FA;
+            color: #1E2650;
+            font-family: 'Inter', sans-serif;
+        }
+        h1, h2, h3, h4, .font-display {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        .section-tag {
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            font-weight: 700;
+            font-size: 0.75rem;
+        }
+        .card-shadow {
+            box-shadow: 0 4px 20px -2px rgba(30, 38, 80, 0.06), 0 2px 6px -1px rgba(30, 38, 80, 0.04);
+        }
+        .card-hover {
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .card-hover:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 28px -4px rgba(30, 38, 80, 0.12), 0 4px 10px -2px rgba(30, 38, 80, 0.06);
+        }
+        /* Barra personalizada */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #F4F7FA;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #94A3B8;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #1E2650;
+        }
+
+        /* Estilos de Impresión para exportar a PDF limpio */
+        @media print {
+            body {
+                background-color: #FFFFFF !important;
+                color: #1E2650 !important;
+                font-size: 10pt;
+            }
+            .no-print {
+                display: none !important;
+            }
+            .print-break-inside-avoid {
+                break-inside: avoid;
+                page-break-inside: avoid;
+            }
+            .card-shadow {
+                box-shadow: none !important;
+                border: 1px solid #CBD5E1 !important;
+            }
+            header, section {
+                padding-top: 1rem !important;
+                padding-bottom: 1rem !important;
+            }
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-planetary-500 selection:text-white">
+
+    <!-- Notificación Flotante (Toast para Copiar Contacto) -->
+    <div id="toast" class="fixed bottom-6 right-6 z-50 hidden transform transition-all duration-300 translate-y-2 opacity-0 bg-navy-800 text-white px-5 py-3 rounded-xl shadow-2xl border-l-4 border-solar-500 flex items-center gap-3 text-sm font-medium no-print">
+        <i data-lucide="check-circle-2" class="w-5 h-5 text-solar-500 shrink-0"></i>
+        <span id="toast-message">Copiado al portapapeles</span>
+    </div>
+
+    <!-- Modal de Detalle de Emprendimiento (Matriz DEL) -->
+    <div id="venture-modal" class="fixed inset-0 z-50 hidden bg-navy-950/70 backdrop-blur-sm flex items-center justify-center p-4 no-print">
+        <div class="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl border border-slate-200 animate-fadeIn">
+            <div class="bg-navy-800 text-white p-6 rounded-t-2xl border-b-4 border-solar-500 flex justify-between items-start gap-4">
+                <div>
+                    <div class="flex flex-wrap items-center gap-2 mb-2">
+                        <span id="modal-node" class="text-xs font-bold uppercase tracking-wider px-2.5 py-0.5 rounded bg-planetary-500 text-white"></span>
+                        <span id="modal-score" class="text-xs font-bold uppercase tracking-wider px-2.5 py-0.5 rounded bg-solar-500 text-navy-950"></span>
+                    </div>
+                    <h3 id="modal-title" class="text-2xl font-display font-extrabold"></h3>
+                    <p id="modal-category" class="text-sm text-planetary-400 font-medium mt-1"></p>
+                </div>
+                <button onclick="closeVentureModal()" class="text-slate-300 hover:text-white p-1.5 rounded-lg hover:bg-navy-700 transition">
+                    <i data-lucide="x" class="w-6 h-6"></i>
+                </button>
+            </div>
+            <div class="p-6 space-y-5">
+                <div class="flex items-center gap-2 text-sm text-slate-600 bg-slate-50 px-3.5 py-2.5 rounded-lg border border-slate-200">
+                    <i data-lucide="map-pin" class="w-4 h-4 text-planetary-500 shrink-0"></i>
+                    <span id="modal-location" class="font-medium"></span>
+                </div>
+
+                <!-- Intervención Directa de Tatiana -->
+                <div class="bg-planetary-100/70 border-l-4 border-planetary-500 p-4 rounded-r-xl">
+                    <h4 class="text-xs font-display font-bold uppercase tracking-wider text-navy-800 flex items-center gap-1.5 mb-1.5">
+                        <i data-lucide="award" class="w-4 h-4 text-planetary-600"></i>
+                        Intervención Técnica y Acompañamiento de Tatiana Pérez
+                    </h4>
+                    <p id="modal-intervention" class="text-sm text-navy-900 leading-relaxed font-medium"></p>
+                </div>
+
+                <!-- Evaluación en las 6 Variables DEL -->
+                <div>
+                    <h4 class="text-xs font-display font-bold uppercase tracking-wider text-slate-500 mb-3">
+                        Desempeño en Variables de Desarrollo Económico Local (DEL)
+                    </h4>
+                    <div id="modal-variables" class="grid grid-cols-1 sm:grid-cols-2 gap-3"></div>
+                </div>
+
+                <!-- Impacto Ecosistémico -->
+                <div class="border-t border-slate-200 pt-4">
+                    <h4 class="text-xs font-display font-bold uppercase tracking-wider text-slate-500 mb-2">
+                        Dinámica Territorial y Modelo de Valor
+                    </h4>
+                    <p id="modal-description" class="text-sm text-slate-700 leading-relaxed"></p>
+                </div>
+            </div>
+            <div class="bg-slate-50 px-6 py-4 rounded-b-2xl border-t border-slate-200 flex justify-end">
+                <button onclick="closeVentureModal()" class="px-5 py-2 bg-navy-800 hover:bg-navy-900 text-white text-sm font-semibold rounded-lg transition">
+                    Cerrar ficha técnica
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- BARRA DE NAVEGACIÓN SUPERIOR FIJA -->
+    <nav class="sticky top-0 z-40 bg-navy-800/95 backdrop-blur-md text-white border-b border-navy-700 shadow-md no-print">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Identidad Compacta -->
+                <a href="#inicio" class="flex items-center gap-3 group">
+                    <div class="w-9 h-9 rounded-lg bg-solar-500 text-navy-950 font-display font-extrabold flex items-center justify-center text-base shadow-sm group-hover:scale-105 transition">
+                        TP
+                    </div>
+                    <div>
+                        <span class="font-display font-bold text-sm tracking-wide block leading-none">TATIANA PÉREZ G.</span>
+                        <span class="text-[11px] text-planetary-400 font-medium block mt-0.5">Portafolio Ejecutivo · DEL & Bioeconomía</span>
+                    </div>
+                </a>
+
+                <!-- Enlaces de Navegación Desktop -->
+                <div class="hidden lg:flex items-center space-x-1 text-xs font-semibold tracking-wide">
+                    <a href="#resumen" class="px-3 py-2 rounded-lg hover:bg-navy-700 hover:text-solar-500 transition">1. Resumen & KPIs</a>
+                    <a href="#modelo" class="px-3 py-2 rounded-lg hover:bg-navy-700 hover:text-solar-500 transition">2. Modelo & MEAL</a>
+                    <a href="#portafolio-del" class="px-3 py-2 rounded-lg hover:bg-navy-700 hover:text-solar-500 transition">3. 15 Casos (DEL)</a>
+                    <a href="#casos-insignia" class="px-3 py-2 rounded-lg hover:bg-navy-700 hover:text-solar-500 transition">4. Hitos & 4H</a>
+                    <a href="#trayectoria" class="px-3 py-2 rounded-lg hover:bg-navy-700 hover:text-solar-500 transition">5. Trayectoria CV</a>
+                    <a href="#referencias" class="px-3 py-2 rounded-lg hover:bg-navy-700 hover:text-solar-500 transition">6. Formación & Ref.</a>
+                </div>
+
+                <!-- Botones de Acción -->
+                <div class="flex items-center gap-2">
+                    <button onclick="window.print()" class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-navy-700 hover:bg-navy-600 text-slate-200 text-xs font-semibold border border-navy-600 transition" title="Imprimir o guardar como PDF">
+                        <i data-lucide="printer" class="w-3.5 h-3.5 text-solar-500"></i>
+                        <span>Exportar PDF</span>
+                    </button>
+                    <a href="https://wa.me/59167629053" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-solar-500 hover:bg-solar-600 text-navy-950 text-xs font-display font-bold transition shadow-sm">
+                        <i data-lucide="message-circle" class="w-3.5 h-3.5"></i>
+                        <span>Contactar</span>
+                    </a>
+                    <!-- Botón Menú Móvil -->
+                    <button onclick="toggleMobileMenu()" class="lg:hidden p-2 rounded-lg text-slate-300 hover:text-white hover:bg-navy-700">
+                        <i data-lucide="menu" class="w-5 h-5"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Menú Desplegable Móvil -->
+        <div id="mobile-menu" class="hidden lg:hidden bg-navy-900 border-t border-navy-700 px-4 pt-2 pb-4 space-y-1 text-xs font-semibold">
+            <a href="#resumen" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-lg hover:bg-navy-800">1. Resumen Ejecutivo & KPIs</a>
+            <a href="#modelo" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-lg hover:bg-navy-800">2. Modelo de Intervención & MEAL</a>
+            <a href="#portafolio-del" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-lg hover:bg-navy-800">3. Portafolio de 15 Emprendimientos (DEL)</a>
+            <a href="#casos-insignia" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-lg hover:bg-navy-800">4. Casos Insignia & Cuádruple Hélice</a>
+            <a href="#trayectoria" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-lg hover:bg-navy-800">5. Trayectoria Laboral & CV</a>
+            <a href="#referencias" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-lg hover:bg-navy-800">6. Formación Académica & Referencias</a>
+            <button onclick="window.print()" class="w-full mt-2 flex items-center justify-center gap-2 px-3 py-2 rounded-lg bg-navy-700 text-white">
+                <i data-lucide="printer" class="w-4 h-4 text-solar-500"></i> Imprimir / Guardar PDF
+            </button>
+        </div>
+    </nav>
+
+    <!-- CABECERA EJECUTIVA (HERO SECTION) -->
+    <header id="inicio" class="bg-gradient-to-br from-navy-900 via-navy-800 to-navy-900 text-white border-b-[6px] border-solar-500 relative overflow-hidden">
+        <!-- Patrón Geométrico Sutil de Fondo -->
+        <div class="absolute inset-0 opacity-10 pointer-events-none" style="background-image: radial-gradient(#398CCB 1px, transparent 1px); background-size: 24px 24px;"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-14 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                
+                <!-- Columna Principal de Identidad (8 cols) -->
+                <div class="lg:col-span-8 space-y-4">
+                    <div class="inline-flex flex-wrap items-center gap-2 bg-navy-950/60 border border-planetary-500/40 px-3.5 py-1.5 rounded-full text-xs font-semibold text-planetary-400">
+                        <span class="w-2 h-2 rounded-full bg-solar-500 animate-pulse"></span>
+                        <span>PORTAFOLIO EJECUTIVO AUDITADO · GESTIÓN DE EMPRENDIMIENTOS SOSTENIBLES</span>
+                    </div>
+
+                    <h1 class="text-3xl sm:text-4xl lg:text-5xl font-display font-extrabold tracking-tight uppercase leading-tight">
+                        Tatiana Kassandra <span class="text-solar-500">Pérez Gonzales</span>
+                    </h1>
+
+                    <h2 class="text-lg sm:text-xl font-display font-bold text-planetary-400 tracking-wide uppercase">
+                        Gestora de Ecosistemas de Emprendimiento y Desarrollo Territorial
+                    </h2>
+
+                    <p class="text-sm sm:text-base font-medium text-slate-300 flex flex-wrap items-center gap-x-2 gap-y-1">
+                        <span>Modelos de Negocio Territorial</span>
+                        <span class="text-solar-500">•</span>
+                        <span>Bioeconomía & Sistemas Agroalimentarios</span>
+                        <span class="text-solar-500">•</span>
+                        <span>Articulación Multiactor</span>
+                        <span class="text-solar-500">•</span>
+                        <span>Inclusión Financiera</span>
+                    </p>
+
+                    <!-- Barra de Contacto Interactiva -->
+                    <div class="pt-3 flex flex-wrap items-center gap-3 text-xs sm:text-sm text-slate-200">
+                        <div class="flex items-center gap-2 bg-navy-950/50 border border-navy-700 px-3.5 py-2 rounded-lg">
+                            <i data-lucide="map-pin" class="w-4 h-4 text-solar-500 shrink-0"></i>
+                            <span><strong>Base:</strong> La Paz, Bolivia <span class="text-slate-400">(Intervención territorial en Sucre / Chuquisaca)</span></span>
+                        </div>
+
+                        <a href="tel:+59167629053" class="flex items-center gap-2 bg-navy-950/50 hover:bg-navy-700 border border-navy-700 px-3.5 py-2 rounded-lg transition">
+                            <i data-lucide="phone" class="w-4 h-4 text-planetary-400 shrink-0"></i>
+                            <span>+591 67629053</span>
+                        </a>
+
+                        <button onclick="copyToClipboard('tkpg614@gmail.com', 'Correo tkpg614@gmail.com copiado')" class="flex items-center gap-2 bg-navy-950/50 hover:bg-navy-700 border border-navy-700 px-3.5 py-2 rounded-lg transition cursor-pointer" title="Clic para copiar correo">
+                            <i data-lucide="mail" class="w-4 h-4 text-planetary-400 shrink-0"></i>
+                            <span>tkpg614@gmail.com</span>
+                            <i data-lucide="copy" class="w-3.5 h-3.5 text-slate-400"></i>
+                        </button>
+
+                        <a href="https://www.linkedin.com/in/tatiana-kassadra-pérez-gonzales-" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 bg-planetary-600/30 hover:bg-planetary-600/50 border border-planetary-500/50 px-3.5 py-2 rounded-lg transition text-white font-medium">
+                            <i data-lucide="linkedin" class="w-4 h-4 text-planetary-400 shrink-0"></i>
+                            <span>LinkedIn Profesional</span>
+                            <i data-lucide="external-link" class="w-3.5 h-3.5 text-planetary-300"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Columna Derecha: Tarjeta de Síntesis de Perfil Triple Hélice Personal (4 cols) -->
+                <div class="lg:col-span-4">
+                    <div class="bg-navy-950/80 border border-navy-700 rounded-2xl p-5 shadow-xl space-y-4">
+                        <div class="flex items-center justify-between border-b border-navy-700 pb-3">
+                            <span class="text-xs font-display font-bold uppercase tracking-wider text-solar-500">Perfil Multidisciplinar</span>
+                            <span class="text-xs bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 px-2.5 py-0.5 rounded-full font-semibold">+6 Años Exp.</span>
+                        </div>
+                        <div class="space-y-3 text-xs">
+                            <div class="flex items-start gap-3">
+                                <div class="p-2 rounded-lg bg-planetary-500/20 text-planetary-400 shrink-0 mt-0.5">
+                                    <i data-lucide="trending-up" class="w-4 h-4"></i>
+                                </div>
+                                <div>
+                                    <p class="font-bold text-white">Ciencias Económicas & Banca</p>
+                                    <p class="text-slate-300">USFX · 5 años en BCP (~Bs 850k/mes) y canalización crediticia BDP (Bs 250k).</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <div class="p-2 rounded-lg bg-solar-500/20 text-solar-500 shrink-0 mt-0.5">
+                                    <i data-lucide="compass" class="w-4 h-4"></i>
+                                </div>
+                                <div>
+                                    <p class="font-bold text-white">Lic. Turismo (Gestión Empresarial)</p>
+                                    <p class="text-slate-300">USFX · Diagnóstico en 23 municipios, LATE Turismo y docencia universitaria.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <div class="p-2 rounded-lg bg-emerald-500/20 text-emerald-400 shrink-0 mt-0.5">
+                                    <i data-lucide="sprout" class="w-4 h-4"></i>
+                                </div>
+                                <div>
+                                    <p class="font-bold text-white">Gastronomía & Bioeconomía</p>
+                                    <p class="text-slate-300">Escuelas MANQ'A & UNIVALLE · Fundadora de Framinela y mentora agroalimentaria.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </header>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-14">
+
+        <!-- SECCIÓN 1: RESUMEN EJECUTIVO & BANDA DE 6 MÉTRICAS DE IMPACTO (KPIs) -->
+        <section id="resumen" class="space-y-8 scroll-mt-20">
+            <!-- Bloque de Resumen Ejecutivo -->
+            <div class="bg-white rounded-2xl p-6 sm:p-8 card-shadow border border-slate-200/80 relative overflow-hidden">
+                <div class="absolute top-0 left-0 w-2 h-full bg-planetary-500"></div>
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+                    <div class="lg:col-span-8 space-y-3">
+                        <div class="flex items-center gap-2 text-planetary-600 section-tag">
+                            <i data-lucide="Briefcase" class="w-4 h-4"></i>
+                            <span>01 · Resumen Ejecutivo & Propuesta de Valor</span>
+                        </div>
+                        <h3 class="text-xl sm:text-2xl font-display font-extrabold text-navy-800">
+                            Liderazgo Operativo desde la Parcela Rural y el Aula hasta el Mercado y el Financiamiento
+                        </h3>
+                        <p class="text-slate-700 text-sm sm:text-base leading-relaxed">
+                            <strong>Gestora de Ecosistemas de Emprendimiento y Desarrollo Territorial</strong> con formación en <strong>Ciencias Económicas</strong>, <strong>Licenciatura en Turismo</strong> orientada a la gestión empresarial (USFX) y formación técnica en <strong>Gastronomía (MANQ'A)</strong>. Cuento con <strong>+6 años de experiencia</strong> en incubación, estructuración de costos y escalamiento de unidades económicas de triple impacto, bioeconomía y rescate cultural lideradas por <strong>jóvenes y mujeres</strong>.
+                        </p>
+                        <p class="text-slate-700 text-sm sm:text-base leading-relaxed">
+                            Especialista en la facilitación práctica de metodologías ágiles (<em>Business Model Canvas, Lean Startup, prototipado y pitch</em>) y canalización a capital semilla y crédito de desarrollo. Experiencia comprobada en <strong>articulación multiactor (Cuádruple Hélice)</strong>, vinculando unidades económicas con gobiernos subnacionales, gobierno central, cooperación internacional (<strong>HELVETAS, CAF</strong>), sector gremial (<strong>CAINCO</strong>), academia (<strong>USFX, ENTEC</strong>) y entidades financieras (<strong>BDP, BCP, Pro Mujer</strong>) para la inserción comercial y el desarrollo sostenible.
+                        </p>
+                    </div>
+
+                    <!-- Cuadro de Afinidad Técnica para Gestor de Emprendimientos -->
+                    <div class="lg:col-span-4 bg-planetary-50 rounded-xl p-5 border border-planetary-100 space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-display font-extrabold uppercase text-navy-800">Matriz de Competencias Clave</span>
+                            <span class="text-xs font-bold bg-navy-800 text-solar-500 px-2.5 py-0.5 rounded">Perfil Integral</span>
+                        </div>
+                        <div class="space-y-2.5 text-xs">
+                            <div>
+                                <div class="flex justify-between font-semibold text-navy-900 mb-1">
+                                    <span>Incubación (Canvas, Lean Startup, Costos)</span>
+                                    <span class="text-planetary-600">100%</span>
+                                </div>
+                                <div class="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
+                                    <div class="bg-planetary-500 h-full rounded-full" style="width: 100%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between font-semibold text-navy-900 mb-1">
+                                    <span>Articulación B2B, Ferias & Digital (STW)</span>
+                                    <span class="text-planetary-600">100%</span>
+                                </div>
+                                <div class="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
+                                    <div class="bg-planetary-500 h-full rounded-full" style="width: 100%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between font-semibold text-navy-900 mb-1">
+                                    <span>Enfoque de Género, Juventud & Territorio</span>
+                                    <span class="text-planetary-600">75% Focalizado</span>
+                                </div>
+                                <div class="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
+                                    <div class="bg-solar-500 h-full rounded-full" style="width: 95%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between font-semibold text-navy-900 mb-1">
+                                    <span>Banca, Capital Semilla & Monitoreo (MEAL)</span>
+                                    <span class="text-planetary-600">100%</span>
+                                </div>
+                                <div class="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
+                                    <div class="bg-emerald-600 h-full rounded-full" style="width: 100%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BANDA DE 6 MÉTRICAS DE IMPACTO (KPI CARDS) -->
+            <div>
+                <div class="flex items-center justify-between mb-4">
+                    <span class="section-tag text-slate-500">Indicadores Verificables de Portafolio (2014 – 2026)</span>
+                    <span class="text-xs text-slate-500 hidden sm:inline">Datos consolidados de Gobernación de Chuquisaca, USFX, LATE Turismo, Framinela y BCP</span>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4">
+                    <!-- KPI 1 -->
+                    <div class="bg-white rounded-xl p-5 card-shadow card-hover border-t-4 border-navy-800 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between text-navy-800 mb-2">
+                                <span class="text-3xl font-display font-extrabold">23<span class="text-lg text-slate-400">/28</span></span>
+                                <i data-lucide="map" class="w-5 h-5 text-planetary-500"></i>
+                            </div>
+                            <div class="text-xs font-display font-bold uppercase tracking-wider text-navy-900">Municipios</div>
+                        </div>
+                        <p class="text-xs text-slate-600 mt-2 leading-snug">
+                            Relevamiento territorial integral (&gt;80% actualizado) y 60% de regularización en 183 empresas.
+                        </p>
+                    </div>
+
+                    <!-- KPI 2 -->
+                    <div class="bg-white rounded-xl p-5 card-shadow card-hover border-t-4 border-planetary-500 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between text-navy-800 mb-2">
+                                <span class="text-3xl font-display font-extrabold">+150</span>
+                                <i data-lucide="users" class="w-5 h-5 text-planetary-500"></i>
+                            </div>
+                            <div class="text-xs font-display font-bold uppercase tracking-wider text-navy-900">Actores Capacitados</div>
+                        </div>
+                        <p class="text-xs text-slate-600 mt-2 leading-snug">
+                            Formación práctica en 5 municipios rurales (Serrano, Zudáñez, Padilla, Yamparáez, Era Pampa) y LATE.
+                        </p>
+                    </div>
+
+                    <!-- KPI 3 -->
+                    <div class="bg-white rounded-xl p-5 card-shadow card-hover border-t-4 border-solar-500 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between text-navy-800 mb-2">
+                                <span class="text-3xl font-display font-extrabold text-solar-600">75%</span>
+                                <i data-lucide="heart-handshake" class="w-5 h-5 text-solar-500"></i>
+                            </div>
+                            <div class="text-xs font-display font-bold uppercase tracking-wider text-navy-900">Inclusión Prioritaria</div>
+                        </div>
+                        <p class="text-xs text-slate-600 mt-2 leading-snug">
+                            Participación focalizada en mujeres y jóvenes emprendedores en cadenas de valor y bionegocios.
+                        </p>
+                    </div>
+
+                    <!-- KPI 4 -->
+                    <div class="bg-white rounded-xl p-5 card-shadow card-hover border-t-4 border-planetary-500 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between text-navy-800 mb-2">
+                                <span class="text-3xl font-display font-extrabold">+50</span>
+                                <i data-lucide="store" class="w-5 h-5 text-planetary-500"></i>
+                            </div>
+                            <div class="text-xs font-display font-bold uppercase tracking-wider text-navy-900">Unidades en Mercado</div>
+                        </div>
+                        <p class="text-xs text-slate-600 mt-2 leading-snug">
+                            Inserción en canales físicos (Feria Inversa, CAINCO) y 40 en plataforma asiática B2B <em>STW Innovation</em>.
+                        </p>
+                    </div>
+
+                    <!-- KPI 5 -->
+                    <div class="bg-white rounded-xl p-5 card-shadow card-hover border-t-4 border-navy-800 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between text-navy-800 mb-2">
+                                <span class="text-2xl sm:text-3xl font-display font-extrabold">Bs 250k</span>
+                                <i data-lucide="landmark" class="w-5 h-5 text-planetary-500"></i>
+                            </div>
+                            <div class="text-xs font-display font-bold uppercase tracking-wider text-navy-900">Financiamiento BDP</div>
+                        </div>
+                        <p class="text-xs text-slate-600 mt-2 leading-snug">
+                            Créditos productivos promovidos al 7% y ~Bs 850k/mes gestionados en banca comercial (BCP).
+                        </p>
+                    </div>
+
+                    <!-- KPI 6 -->
+                    <div class="bg-white rounded-xl p-5 card-shadow card-hover border-t-4 border-solar-500 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between text-navy-800 mb-2">
+                                <span class="text-3xl font-display font-extrabold text-emerald-600">+400%</span>
+                                <i data-lucide="rocket" class="w-5 h-5 text-emerald-600"></i>
+                            </div>
+                            <div class="text-xs font-display font-bold uppercase tracking-wider text-navy-900">Escalamiento Propio</div>
+                        </div>
+                        <p class="text-xs text-slate-600 mt-2 leading-snug">
+                            Crecimiento operativo en <em>Framinela</em> (10 a 50 desayunos/campaña) y Top 3 en Sucre Chalita Lab.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 2: ARQUITECTURA METODOLÓGICA DE INTERVENCIÓN & TRAZABILIDAD (MEAL) -->
+        <section id="modelo" class="space-y-6 scroll-mt-20">
+            <div class="border-b border-slate-200 pb-3 flex flex-col sm:flex-row sm:items-end justify-between gap-2">
+                <div>
+                    <span class="section-tag text-planetary-600">02 · Metodología de Incubación, Articulación y Seguimiento</span>
+                    <h2 class="text-2xl sm:text-3xl font-display font-extrabold text-navy-800 mt-1">
+                        Ruta de Intervención Territorial en 4 Fases
+                    </h2>
+                </div>
+                <p class="text-xs text-slate-500 max-w-md">
+                    Integración de herramientas ágiles de diseño empresarial con rigor financiero y monitoreo de resultados verificables.
+                </p>
+            </div>
+
+            <!-- Los 4 Pilares Metodológicos -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+                <!-- Fase 1 -->
+                <div class="bg-white rounded-xl p-6 card-shadow border border-slate-200 relative flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="px-2.5 py-1 rounded-md bg-navy-800 text-solar-500 font-display font-extrabold text-xs">FASE 01</span>
+                            <i data-lucide="clipboard-check" class="w-6 h-6 text-planetary-500"></i>
+                        </div>
+                        <h3 class="text-base font-display font-bold text-navy-900 mb-2">
+                            Diagnóstico Territorial & Gobernanza
+                        </h3>
+                        <p class="text-xs text-slate-600 leading-relaxed mb-4">
+                            Identificación en campo de vocaciones productivas y cuellos de botella normativos e infraestructurales junto a gobiernos municipales y comunidades.
+                        </p>
+                    </div>
+                    <ul class="space-y-1.5 text-xs text-navy-800 font-medium border-t border-slate-100 pt-3">
+                        <li class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-600 shrink-0"></i> Catálogo actualizado: 23/28 municipios</li>
+                        <li class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-600 shrink-0"></i> Base legal Excel: 183 empresas (60% reg.)</li>
+                        <li class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-600 shrink-0"></i> Diagnóstico in situ: Comunidad Era Pampa</li>
+                    </ul>
+                </div>
+
+                <!-- Fase 2 -->
+                <div class="bg-white rounded-xl p-6 card-shadow border border-slate-200 relative flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="px-2.5 py-1 rounded-md bg-planetary-600 text-white font-display font-extrabold text-xs">FASE 02</span>
+                            <i data-lucide="layers" class="w-6 h-6 text-planetary-500"></i>
+                        </div>
+                        <h3 class="text-base font-display font-bold text-navy-900 mb-2">
+                            Incubación Ágil & Costeo Técnico
+                        </h3>
+                        <p class="text-xs text-slate-600 leading-relaxed mb-4">
+                            Transferencia metodológica adaptada a jóvenes, mujeres y productores rurales mediante aprender-haciendo, validación de mercado y estandarización.
+                        </p>
+                    </div>
+                    <ul class="space-y-1.5 text-xs text-navy-800 font-medium border-t border-slate-100 pt-3">
+                        <li class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-600 shrink-0"></i> Lean Startup, Modelo Canvas y Pitch</li>
+                        <li class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-600 shrink-0"></i> Estructura de costos, precios y mermas</li>
+                        <li class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-600 shrink-0"></i> Inocuidad alimentaria y prototipado</li>
+                    </ul>
+                </div>
+
+                <!-- Fase 3 -->
+                <div class="bg-white rounded-xl p-6 card-shadow border border-slate-200 relative flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="px-2.5 py-1 rounded-md bg-solar-500 text-navy-950 font-display font-extrabold text-xs">FASE 03</span>
+                            <i data-lucide="globe-2" class="w-6 h-6 text-solar-600"></i>
+                        </div>
+                        <h3 class="text-base font-display font-bold text-navy-900 mb-2">
+                            Articulación Comercial B2B & Digital
+                        </h3>
+                        <p class="text-xs text-slate-600 leading-relaxed mb-4">
+                            Conexión directa entre la oferta comunitaria/urbana y compradores estratégicos, eliminando intermediación y abriendo vitrinas digitales.
+                        </p>
+                    </div>
+                    <ul class="space-y-1.5 text-xs text-navy-800 font-medium border-t border-slate-100 pt-3">
+                        <li class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-600 shrink-0"></i> "Feria a la Inversa" B2B (15 unidades)</li>
+                        <li class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-600 shrink-0"></i> 40 negocios en <em>Shake to Win</em> (Asia)</li>
+                        <li class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-600 shrink-0"></i> Vitrinas CAINCO, TikTok e Instagram</li>
+                    </ul>
+                </div>
+
+                <!-- Fase 4 -->
+                <div class="bg-white rounded-xl p-6 card-shadow border border-slate-200 relative flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="px-2.5 py-1 rounded-md bg-emerald-700 text-white font-display font-extrabold text-xs">FASE 04</span>
+                            <i data-lucide="bar-chart-3" class="w-6 h-6 text-emerald-600"></i>
+                        </div>
+                        <h3 class="text-base font-display font-bold text-navy-900 mb-2">
+                            Financiamiento & Monitoreo (MEAL)
+                        </h3>
+                        <p class="text-xs text-slate-600 leading-relaxed mb-4">
+                            Evaluación crediticia, acercamiento a banca de desarrollo y clasificación post-incubación según métricas reales de ventas y madurez.
+                        </p>
+                    </div>
+                    <ul class="space-y-1.5 text-xs text-navy-800 font-medium border-t border-slate-100 pt-3">
+                        <li class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-600 shrink-0"></i> Vinculación BDP (créditos hasta Bs 250k)</li>
+                        <li class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-600 shrink-0"></i> Pro Mujer y fondos de Capital Semilla</li>
+                        <li class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-600 shrink-0"></i> Trazabilidad LATE: 20% listos p/acelerar</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Bloque Gráfico Dual: Embudo MEAL y Comparativa Antes/Después -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 pt-2">
+                <!-- Gráfico 1: Embudo de Trazabilidad y Madurez Empresarial -->
+                <div class="lg:col-span-7 bg-white rounded-2xl p-6 card-shadow border border-slate-200">
+                    <div class="flex items-center justify-between mb-4">
+                        <div>
+                            <span class="text-xs font-bold uppercase tracking-wider text-planetary-600">Sistematización Cuantitativa y Cualitativa</span>
+                            <h3 class="text-lg font-display font-bold text-navy-800">Embudo de Alcance Territorial y Clasificación MEAL</h3>
+                        </div>
+                        <span class="text-xs bg-slate-100 text-slate-700 px-2.5 py-1 rounded font-semibold">Evidencia de Campo</span>
+                    </div>
+
+                    <div class="space-y-3.5 text-xs">
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="font-semibold text-navy-900">1. Unidades Económicas Relevadas y Auditadas (Gobernación)</span>
+                                <span class="font-display font-bold text-navy-800">183 Unidades (60% Regularizadas)</span>
+                            </div>
+                            <div class="w-full bg-slate-100 h-5 rounded-md overflow-hidden p-0.5">
+                                <div class="bg-navy-800 h-full rounded flex items-center justify-end pr-2 text-[10px] text-white font-bold" style="width: 100%">100% Base</div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="font-semibold text-navy-900">2. Emprendedores y Prestadores Capacitados (5 Municipios + LATE)</span>
+                                <span class="font-display font-bold text-planetary-600">+150 Actores (75% Mujeres y Jóvenes)</span>
+                            </div>
+                            <div class="w-full bg-slate-100 h-5 rounded-md overflow-hidden p-0.5">
+                                <div class="bg-planetary-600 h-full rounded flex items-center justify-end pr-2 text-[10px] text-white font-bold" style="width: 82%">82%</div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="font-semibold text-navy-900">3. Iniciativas Evaluadas en Seguimiento Post-Laboratorio (LATE Turismo)</span>
+                                <span class="font-display font-bold text-planetary-500">80 Registrados (30 en Lab Intensivo)</span>
+                            </div>
+                            <div class="w-full bg-slate-100 h-5 rounded-md overflow-hidden p-0.5">
+                                <div class="bg-planetary-500 h-full rounded flex items-center justify-end pr-2 text-[10px] text-white font-bold" style="width: 52%">52%</div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="font-semibold text-navy-900">4. Unidades Insertadas en Plataforma Internacional B2B (STW Innovation)</span>
+                                <span class="font-display font-bold text-solar-600">40 Unidades en Catálogo Asiático</span>
+                            </div>
+                            <div class="w-full bg-slate-100 h-5 rounded-md overflow-hidden p-0.5">
+                                <div class="bg-solar-500 h-full rounded flex items-center justify-end pr-2 text-[10px] text-navy-950 font-bold" style="width: 34%">34%</div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="font-semibold text-navy-900">5. Emprendimientos Categorizados para Fase de Aceleración y Crédito</span>
+                                <span class="font-display font-bold text-emerald-700">16 Emprendimientos (20% de Madurez Alta)</span>
+                            </div>
+                            <div class="w-full bg-slate-100 h-5 rounded-md overflow-hidden p-0.5">
+                                <div class="bg-emerald-600 h-full rounded flex items-center justify-end pr-2 text-[10px] text-white font-bold" style="width: 22%">Top 20%</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Gráfico 2: Resultados de Innovación Operativa (Antes vs Después) -->
+                <div class="lg:col-span-5 bg-navy-800 text-white rounded-2xl p-6 card-shadow flex flex-col justify-between">
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-solar-500">Tracción Verificable</span>
+                        <h3 class="text-lg font-display font-bold mt-1 mb-4">Resultados de Gestión Operativa (Línea Base vs. Hito Logrado)</h3>
+
+                        <div class="space-y-4">
+                            <!-- Caso Museo CETUR -->
+                            <div class="bg-navy-900/90 border border-navy-700 rounded-xl p-3.5">
+                                <div class="flex justify-between items-center mb-1">
+                                    <span class="text-xs font-bold text-planetary-400">Museo CETUR (Noche de Museos)</span>
+                                    <span class="text-xs font-extrabold bg-solar-500 text-navy-950 px-2 py-0.5 rounded">+660% Flujo</span>
+                                </div>
+                                <p class="text-[11px] text-slate-300 mb-2">Implementación de experiencia sensorial táctil, redes (TikTok/FB) y registro digital en Excel.</p>
+                                <div class="grid grid-cols-2 gap-2 text-xs">
+                                    <div class="bg-navy-950 px-3 py-1.5 rounded border border-navy-800">
+                                        <span class="text-slate-400 block text-[10px]">Asistencia Habitual</span>
+                                        <span class="font-display font-bold text-slate-200">10 – 15 visitantes</span>
+                                    </div>
+                                    <div class="bg-planetary-600/30 px-3 py-1.5 rounded border border-planetary-500/40">
+                                        <span class="text-planetary-300 block text-[10px]">Hito con Innovación</span>
+                                        <span class="font-display font-bold text-white">+100 visitantes / noche</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Caso Framinela -->
+                            <div class="bg-navy-900/90 border border-navy-700 rounded-xl p-3.5">
+                                <div class="flex justify-between items-center mb-1">
+                                    <span class="text-xs font-bold text-planetary-400">Framinela (Estandarización y Logística)</span>
+                                    <span class="text-xs font-extrabold bg-emerald-500 text-navy-950 px-2 py-0.5 rounded">+400% Escala</span>
+                                </div>
+                                <p class="text-[11px] text-slate-300 mb-2">Costeo de recetas, compras por volumen, reservas anticipadas y flota externa por rutas.</p>
+                                <div class="grid grid-cols-2 gap-2 text-xs">
+                                    <div class="bg-navy-950 px-3 py-1.5 rounded border border-navy-800">
+                                        <span class="text-slate-400 block text-[10px]">Capacidad Inicial</span>
+                                        <span class="font-display font-bold text-slate-200">10 desayunos / campaña</span>
+                                    </div>
+                                    <div class="bg-emerald-600/30 px-3 py-1.5 rounded border border-emerald-500/40">
+                                        <span class="text-emerald-300 block text-[10px]">Capacidad Escalada</span>
+                                        <span class="font-display font-bold text-white">50 desayunos / campaña</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-4 pt-3 border-t border-navy-700 flex items-center justify-between text-[11px] text-slate-300">
+                        <span>Atención con pasantes USFX/ENTEC:</span>
+                        <span class="font-bold text-solar-500">De 1 pasante a 3 por turnos organizados</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 3: PORTAFOLIO INTERACTIVO DE 15 EMPRENDIMIENTOS ASISTIDOS Y ARTICULADOS EN SUCRE Y CHUQUISACA (MATRIZ DEL) -->
+        <section id="portafolio-del" class="space-y-6 scroll-mt-20">
+            <div class="bg-white rounded-2xl p-6 sm:p-8 card-shadow border border-slate-200 space-y-6">
+                
+                <!-- Encabezado y Contexto Situacional -->
+                <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-200 pb-5">
+                    <div class="space-y-1.5 max-w-3xl">
+                        <div class="flex items-center gap-2 text-planetary-600 section-tag">
+                            <i data-lucide="network" class="w-4 h-4"></i>
+                            <span>03 · Evidencia Empírica en Desarrollo Económico Local (DEL)</span>
+                        </div>
+                        <h2 class="text-2xl sm:text-3xl font-display font-extrabold text-navy-800">
+                            Portafolio de 15 Emprendimientos e Iniciativas Asistidas en Chuquisaca
+                        </h2>
+                        <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                            Mapeo multidimensional de las 15 unidades económicas y comunitarias fortalecidas, incubadas o articuladas por Tatiana Pérez en Sucre y sus corredores rurales (Yamparáez, Yotala, Padilla, Villa Serrano, Poroma y cañones del Pilcomayo/Río Grande).
+                        </p>
+                    </div>
+
+                    <!-- Mini-Tarjetas de Incidencia Estructural DEL -->
+                    <div class="grid grid-cols-3 gap-2.5 shrink-0">
+                        <div class="bg-planetary-50 border border-planetary-100 px-3.5 py-2.5 rounded-xl text-center">
+                            <span class="text-xl font-display font-extrabold text-planetary-600 block">60%</span>
+                            <span class="text-[10px] font-bold uppercase text-navy-800 block">Vínculo Urbano-Rural</span>
+                            <span class="text-[10px] text-slate-500">9/15 Estructural</span>
+                        </div>
+                        <div class="bg-emerald-50 border border-emerald-100 px-3.5 py-2.5 rounded-xl text-center">
+                            <span class="text-xl font-display font-extrabold text-emerald-700 block">53%</span>
+                            <span class="text-[10px] font-bold uppercase text-navy-800 block">Sist. Agroalimentarios</span>
+                            <span class="text-[10px] text-slate-500">8/15 Estructural</span>
+                        </div>
+                        <div class="bg-solar-100/60 border border-solar-500/30 px-3.5 py-2.5 rounded-xl text-center">
+                            <span class="text-xl font-display font-extrabold text-solar-600 block">67%</span>
+                            <span class="text-[10px] font-bold uppercase text-navy-800 block">Jóvenes y Mujeres</span>
+                            <span class="text-[10px] text-slate-500">10/15 Estructural</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Controles de Filtrado, Búsqueda y Selector de Vista -->
+                <div class="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4 bg-slate-50 p-4 rounded-xl border border-slate-200 no-print">
+                    <!-- Filtros por Nodo Territorial -->
+                    <div class="flex flex-wrap items-center gap-1.5">
+                        <span class="text-xs font-bold text-slate-500 mr-1">Nodo:</span>
+                        <button onclick="setNodeFilter('ALL')" id="btn-node-ALL" class="px-3 py-1.5 rounded-lg text-xs font-bold transition bg-navy-800 text-white shadow-sm">
+                            Todos (15)
+                        </button>
+                        <button onclick="setNodeFilter('RURAL')" id="btn-node-RURAL" class="px-3 py-1.5 rounded-lg text-xs font-bold transition bg-white text-slate-700 hover:bg-slate-200 border border-slate-200">
+                            Valles y Rural (9)
+                        </button>
+                        <button onclick="setNodeFilter('URBANO')" id="btn-node-URBANO" class="px-3 py-1.5 rounded-lg text-xs font-bold transition bg-white text-slate-700 hover:bg-slate-200 border border-slate-200">
+                            Urbano Sucre (6)
+                        </button>
+                    </div>
+
+                    <!-- Filtro por Sector y Buscador -->
+                    <div class="flex flex-wrap items-center gap-2">
+                        <select id="sector-select" onchange="filterVentures()" class="bg-white border border-slate-300 text-navy-900 text-xs font-semibold rounded-lg px-3 py-2 focus:outline-none focus:border-planetary-500">
+                            <option value="ALL">Todos los Sectores (Bioeconomía / DEL)</option>
+                            <option value="GASTRO">Gastronomía, Agroindustria & Botánica</option>
+                            <option value="TURISMO">Turismo Comunitario, Rural & Aventura</option>
+                            <option value="CULTURA">Cultura, Museos, Artesanía & Transporte</option>
+                        </select>
+
+                        <div class="relative">
+                            <input type="text" id="venture-search" oninput="filterVentures()" placeholder="Buscar emprendimiento o municipio..." class="bg-white border border-slate-300 text-navy-900 text-xs rounded-lg pl-8 pr-3 py-2 w-56 focus:outline-none focus:border-planetary-500">
+                            <i data-lucide="search" class="w-3.5 h-3.5 text-slate-400 absolute left-2.5 top-2.5"></i>
+                        </div>
+
+                        <!-- Selector de Vista: Tarjetas vs Matriz -->
+                        <div class="inline-flex rounded-lg border border-slate-300 bg-white p-0.5">
+                            <button onclick="setViewMode('CARDS')" id="btn-view-CARDS" class="px-2.5 py-1 rounded-md text-xs font-bold bg-planetary-500 text-white transition flex items-center gap-1">
+                                <i data-lucide="layout-grid" class="w-3.5 h-3.5"></i> Tarjetas
+                            </button>
+                            <button onclick="setViewMode('TABLE')" id="btn-view-TABLE" class="px-2.5 py-1 rounded-md text-xs font-bold text-slate-600 hover:text-navy-900 transition flex items-center gap-1">
+                                <i data-lucide="table-2" class="w-3.5 h-3.5"></i> Matriz DEL
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contenedor Vista Tarjetas (Grid) -->
+                <div id="ventures-cards-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                    <!-- Renderizado dinámicamente vía JS -->
+                </div>
+
+                <!-- Contenedor Vista Tabla (Matriz Comparativa DEL) -->
+                <div id="ventures-table-container" class="hidden overflow-x-auto border border-slate-200 rounded-xl">
+                    <table class="w-full text-left border-collapse text-xs">
+                        <thead>
+                            <tr class="bg-navy-800 text-white font-display uppercase tracking-wider text-[11px]">
+                                <th class="py-3 px-4">Emprendimiento / Municipio</th>
+                                <th class="py-3 px-3 text-center">Revaloriz. Cultural</th>
+                                <th class="py-3 px-3 text-center">Innovación</th>
+                                <th class="py-3 px-3 text-center">Empleo</th>
+                                <th class="py-3 px-3 text-center">Urbano-Rural</th>
+                                <th class="py-3 px-3 text-center">Sist. Agroalim.</th>
+                                <th class="py-3 px-3 text-center">Jóvenes/Mujeres</th>
+                                <th class="py-3 px-3 text-center">Puntaje DEL</th>
+                                <th class="py-3 px-3 text-center no-print">Ficha</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ventures-table-body" class="divide-y divide-slate-200">
+                            <!-- Renderizado dinámicamente vía JS -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Leyenda de Escala DEL -->
+                <div class="flex flex-wrap items-center justify-between gap-4 pt-2 border-t border-slate-100 text-xs text-slate-500">
+                    <div class="flex flex-wrap items-center gap-4">
+                        <span class="font-bold text-navy-800">Escala de Incidencia DEL:</span>
+                        <span class="inline-flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-sm bg-planetary-600"></span> <strong>Estructural</strong> (Alto / 3 pts)</span>
+                        <span class="inline-flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-sm bg-planetary-400"></span> <strong>Media-Alta</strong> (2 pts)</span>
+                        <span class="inline-flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-sm bg-slate-300"></span> <strong>Complementaria</strong> (1 pt)</span>
+                    </div>
+                    <span class="italic">Haz clic en cualquier emprendimiento para inspeccionar la intervención técnica de Tatiana Pérez.</span>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- SECCIÓN 4: CASOS INSIGNIA & ARTICULACIÓN DE LA CUÁDRUPLE HÉLICE -->
+        <section id="casos-insignia" class="space-y-8 scroll-mt-20">
+            <div class="border-b border-slate-200 pb-3">
+                <span class="section-tag text-planetary-600">04 · Gobernanza Multiactor y Casos de Estudio</span>
+                <h2 class="text-2xl sm:text-3xl font-display font-extrabold text-navy-800 mt-1">
+                    Hitos de Articulación en la Cuádruple Hélice de Chuquisaca
+                </h2>
+            </div>
+
+            <!-- 3 Casos Insignia Detallados -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                
+                <!-- Caso Insignia 1: LATE Turismo -->
+                <div class="bg-white rounded-2xl overflow-hidden card-shadow border border-slate-200 flex flex-col justify-between">
+                    <div>
+                        <div class="bg-navy-800 text-white p-5 border-b-4 border-planetary-500">
+                            <div class="flex items-center justify-between text-xs text-planetary-400 font-bold uppercase mb-1">
+                                <span>Caso Insignia 01 · Incubación & Mercados</span>
+                                <i data-lucide="flask-conical" class="w-4 h-4 text-solar-500"></i>
+                            </div>
+                            <h3 class="text-lg font-display font-extrabold">Laboratorio Temático de Turismo (LATE Turismo)</h3>
+                        </div>
+                        <div class="p-6 space-y-4 text-xs sm:text-sm text-slate-700">
+                            <p class="leading-relaxed">
+                                <strong>Desafío:</strong> Articular a emprendedores dispersos con la academia, la cooperación y la banca de desarrollo para pasar de ideas empíricas a modelos validados con tracción B2B.
+                            </p>
+                            <div class="space-y-2 text-xs">
+                                <div class="p-3 rounded-lg bg-slate-50 border border-slate-200">
+                                    <strong class="text-navy-900 block mb-0.5">Alianza Multiactor Impulsada:</strong>
+                                    Co-creación junto a <strong>HELVETAS / BETAS</strong>, <strong>Banco de Desarrollo Productivo (BDP)</strong> y la <strong>USFX</strong>.
+                                </div>
+                                <div class="p-3 rounded-lg bg-slate-50 border border-slate-200">
+                                    <strong class="text-navy-900 block mb-0.5">Feria a la Inversa & Metodologías Ágiles:</strong>
+                                    Facilitación en <em>Lean Startup</em> y <em>Canvas</em> durante 3 días de laboratorio. Diseño de una <strong>"Feria a la Inversa"</strong> para 15 unidades económicas conectando su oferta con compradores estratégicos.
+                                </div>
+                                <div class="p-3 rounded-lg bg-planetary-50 border border-planetary-200">
+                                    <strong class="text-navy-900 block mb-0.5">Seguimiento MEAL y Aceleración:</strong>
+                                    Levantamiento post-laboratorio de ingresos, ventas y clientes sobre 80 inscritos (30 activos en laboratorio), clasificando al <strong>20% (16 emprendimientos)</strong> listos para aceleración y crédito BDP.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="px-6 py-3 bg-slate-50 border-t border-slate-200 text-[11px] font-bold text-navy-800 flex justify-between">
+                        <span>Resultado: 15 articulaciones B2B directas</span>
+                        <span class="text-planetary-600">20% Madurez Alta</span>
+                    </div>
+                </div>
+
+                <!-- Caso Insignia 2: Gobernanza Territorial y Era Pampa -->
+                <div class="bg-white rounded-2xl overflow-hidden card-shadow border border-slate-200 flex flex-col justify-between">
+                    <div>
+                        <div class="bg-navy-800 text-white p-5 border-b-4 border-solar-500">
+                            <div class="flex items-center justify-between text-xs text-solar-500 font-bold uppercase mb-1">
+                                <span>Caso Insignia 02 · Gestión Territorial</span>
+                                <i data-lucide="mountain-snow" class="w-4 h-4 text-solar-500"></i>
+                            </div>
+                            <h3 class="text-lg font-display font-extrabold">Bionegocios en Era Pampa & Despliegue en 23 Municipios</h3>
+                        </div>
+                        <div class="p-6 space-y-4 text-xs sm:text-sm text-slate-700">
+                            <p class="leading-relaxed">
+                                <strong>Desafío:</strong> Descentralizar la actividad económica de Sucre hacia los municipios rurales, reactivando catálogos paralizados desde 2020 y abriendo mercados internacionales.
+                            </p>
+                            <div class="space-y-2 text-xs">
+                                <div class="p-3 rounded-lg bg-slate-50 border border-slate-200">
+                                    <strong class="text-navy-900 block mb-0.5">Incubación Verde en Era Pampa (Yamparáez):</strong>
+                                    Diagnóstico de campo que detonó <strong>5 líneas de bionegocios</strong>: apicultura comunal, gastronomía ancestral (<em>thako lawa</em> de algarrobo y hornos de barro), fruticultura, ciclismo y parapente.
+                                </div>
+                                <div class="p-3 rounded-lg bg-slate-50 border border-slate-200">
+                                    <strong class="text-navy-900 block mb-0.5">Capacitación Rural Inclusiva:</strong>
+                                    Jornadas técnicas en <strong>Serrano, Zudáñez, Padilla, Yamparáez y Era Pampa</strong> (~150 capacitados, 75% mujeres y jóvenes) en costos, inocuidad y servicio con apoyo de docentes y pasantes USFX.
+                                </div>
+                                <div class="p-3 rounded-lg bg-solar-100/50 border border-solar-500/30">
+                                    <strong class="text-navy-900 block mb-0.5">Certificación CAF & Mercado Asiático:</strong>
+                                    10 municipios certificados en sostenibilidad/calidad (CAF), postulaciones a <em>"200 años, 200 Destinos"</em> y <strong>40 unidades en Shake to Win (STW)</strong>.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="px-6 py-3 bg-slate-50 border-t border-slate-200 text-[11px] font-bold text-navy-800 flex justify-between">
+                        <span>Resultado: 23/28 municipios formalizados</span>
+                        <span class="text-solar-600">40 en STW Asia</span>
+                    </div>
+                </div>
+
+                <!-- Caso Insignia 3: Inclusión Financiera y Escalamiento Propio -->
+                <div class="bg-white rounded-2xl overflow-hidden card-shadow border border-slate-200 flex flex-col justify-between">
+                    <div>
+                        <div class="bg-navy-800 text-white p-5 border-b-4 border-emerald-500">
+                            <div class="flex items-center justify-between text-xs text-emerald-400 font-bold uppercase mb-1">
+                                <span>Caso Insignia 03 · Banca & Empresa Propia</span>
+                                <i data-lucide="coins" class="w-4 h-4 text-emerald-400"></i>
+                            </div>
+                            <h3 class="text-lg font-display font-extrabold">Puente Financiero (BCP / BDP) & Escalamiento Framinela</h3>
+                        </div>
+                        <div class="p-6 space-y-4 text-xs sm:text-sm text-slate-700">
+                            <p class="leading-relaxed">
+                                <strong>Diferencial Ejecutivo:</strong> Tatiana combina el rigor de 5 años en banca comercial con la vivencia real de fundar, costear y escalar su propia unidad económica gastronómica.
+                            </p>
+                            <div class="space-y-2 text-xs">
+                                <div class="p-3 rounded-lg bg-slate-50 border border-slate-200">
+                                    <strong class="text-navy-900 block mb-0.5">Rigor Bancario y Evaluación Crediticia (BCP):</strong>
+                                    Cumplimiento sostenido de metas de <strong>~Bs 500.000/mes en créditos</strong> y <strong>Bs 300.000–350.000/mes en pasivos</strong> (~Bs 850k/mes) y operaciones de equipamiento médico de hasta Bs 300.000.
+                                </div>
+                                <div class="p-3 rounded-lg bg-slate-50 border border-slate-200">
+                                    <strong class="text-navy-900 block mb-0.5">Canalización a Banca de Desarrollo (BDP):</strong>
+                                    Preparación de flujos de caja y costos para conectar emprendimientos con líneas productivas del <strong>BDP (hasta Bs 250.000 al 7%)</strong> y acercamiento a <strong>Pro Mujer</strong>.
+                                </div>
+                                <div class="p-3 rounded-lg bg-emerald-50 border border-emerald-200">
+                                    <strong class="text-navy-900 block mb-0.5">Caso Framinela & Colectivo Yanuk:</strong>
+                                    Escalamiento del <strong>+400%</strong> en campañas, <strong>Top 3 en Sucre Chalita Lab</strong> (Capital Semilla), catering para almuerzo y desayuno presidencial, y proveeduría inclusiva con jóvenes.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="px-6 py-3 bg-slate-50 border-t border-slate-200 text-[11px] font-bold text-navy-800 flex justify-between">
+                        <span>Resultado: ~Bs 850k/mes gestionados en banca</span>
+                        <span class="text-emerald-700">Top 3 Chalita Lab</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Mapa de Articulación Institucional (Cuádruple Hélice) -->
+            <div class="bg-navy-900 text-white rounded-2xl p-6 sm:p-8 card-shadow border border-navy-700">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 border-b border-navy-700 pb-4">
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-solar-500">Capital Relacional Verificable</span>
+                        <h3 class="text-xl font-display font-extrabold mt-0.5">Ecosistema de Alianzas Articuladas por Tatiana Pérez (Cuádruple Hélice)</h3>
+                    </div>
+                    <span class="text-xs bg-navy-800 border border-navy-600 px-3 py-1.5 rounded-lg text-planetary-300">
+                        Articulación Urbana y Rural en Chuquisaca
+                    </span>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs">
+                    <div class="bg-navy-800/90 border border-navy-700 p-4 rounded-xl space-y-2">
+                        <div class="flex items-center gap-2 text-solar-500 font-display font-bold uppercase">
+                            <i data-lucide="graduation-cap" class="w-4 h-4"></i>
+                            <span>1. Academia & Técnica</span>
+                        </div>
+                        <p class="text-slate-300 leading-relaxed">
+                            <strong>USFX</strong> (Carreras de Turismo, Gastronomía y Ciencias Económicas), <strong>Instituto ENTEC</strong>, <strong>Escuelas MANQ'A</strong>, <strong>UNIVALLE</strong>. Movilización de docentes y pasantes hacia los municipios y al Museo CETUR.
+                        </p>
+                    </div>
+
+                    <div class="bg-navy-800/90 border border-navy-700 p-4 rounded-xl space-y-2">
+                        <div class="flex items-center gap-2 text-planetary-400 font-display font-bold uppercase">
+                            <i data-lucide="globe" class="w-4 h-4"></i>
+                            <span>2. Cooperación & ONGs</span>
+                        </div>
+                        <p class="text-slate-300 leading-relaxed">
+                            <strong>HELVETAS Swiss Intercooperation</strong> (LATE Turismo, incentivos de pitch en Río Chico), <strong>CAF - Banco de Desarrollo de América Latina</strong> (certificación de 10 municipios), <strong>FUNPADESH</strong> y <strong>Sendas Bolivia</strong>.
+                        </p>
+                    </div>
+
+                    <div class="bg-navy-800/90 border border-navy-700 p-4 rounded-xl space-y-2">
+                        <div class="flex items-center gap-2 text-emerald-400 font-display font-bold uppercase">
+                            <i data-lucide="building-2" class="w-4 h-4"></i>
+                            <span>3. Sector Privado & Banca</span>
+                        </div>
+                        <p class="text-slate-300 leading-relaxed">
+                            <strong>CAINCO Chuquisaca</strong> (Ferias estudiantiles y empresariales), <strong>BDP</strong> (créditos productivos y LATE), <strong>BCP</strong>, <strong>Pro Mujer</strong>, plataforma asiática <strong>Shake to Win (STW Innovation)</strong>, <strong>FEPCH / Actívate</strong> y colectivo <strong>Yanuk</strong>.
+                        </p>
+                    </div>
+
+                    <div class="bg-navy-800/90 border border-navy-700 p-4 rounded-xl space-y-2">
+                        <div class="flex items-center gap-2 text-amber-400 font-display font-bold uppercase">
+                            <i data-lucide="landmark" class="w-4 h-4"></i>
+                            <span>4. Estado & Municipios</span>
+                        </div>
+                        <p class="text-slate-300 leading-relaxed">
+                            <strong>Gobernación de Chuquisaca</strong> (Dirección de Turismo y Culturas), <strong>GAM Sucre</strong> (Chalita Lab, Noche de Museos), <strong>23 Gobiernos Municipales Rurales</strong> (Padilla, Villa Serrano, Yamparáez, Zudáñez, Poroma) y programa nacional <em>200 Años, 200 Destinos</em>.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 5: TRAYECTORIA LABORAL & CV CRONOLÓGICO DETALLADO -->
+        <section id="trayectoria" class="space-y-6 scroll-mt-20">
+            <div class="border-b border-slate-200 pb-3 flex flex-col sm:flex-row sm:items-end justify-between gap-2">
+                <div>
+                    <span class="section-tag text-planetary-600">05 · Hoja de Vida Ejecutiva & Experiencia Documentada</span>
+                    <h2 class="text-2xl sm:text-3xl font-display font-extrabold text-navy-800 mt-1">
+                        Trayectoria Laboral y Logros Verificables
+                    </h2>
+                </div>
+                <span class="text-xs font-semibold text-slate-500">Estructura orientada a Resultados y Gobernanza de Portafolio</span>
+            </div>
+
+            <div class="space-y-5">
+                
+                <!-- Rol 1: Gobernación de Chuquisaca -->
+                <div class="bg-white rounded-2xl p-6 card-shadow border border-slate-200 print-break-inside-avoid">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-2 border-b border-slate-100 pb-4 mb-4">
+                        <div>
+                            <div class="flex items-center gap-2">
+                                <span class="px-2.5 py-0.5 rounded bg-planetary-100 text-planetary-600 font-bold text-xs">Sector Público & Desarrollo Territorial</span>
+                                <span class="text-xs text-slate-400 font-medium">Chuquisaca, Bolivia</span>
+                            </div>
+                            <h3 class="text-lg sm:text-xl font-display font-extrabold text-navy-800 mt-1">
+                                Técnico II – Desarrollo Territorial y Proyectos Turísticos
+                            </h3>
+                            <p class="text-sm font-semibold text-planetary-600">Gobernación de Chuquisaca – Dirección Departamental de Turismo</p>
+                        </div>
+                        <div class="text-left md:text-right shrink-0">
+                            <span class="inline-block bg-navy-800 text-white text-xs font-display font-bold px-3 py-1.5 rounded-lg">Abril 2025 – Diciembre 2025</span>
+                        </div>
+                    </div>
+                    <ul class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-3 text-xs sm:text-sm text-slate-700">
+                        <li class="flex items-start gap-2.5">
+                            <span class="w-1.5 h-1.5 rounded-full bg-planetary-500 mt-2 shrink-0"></span>
+                            <span><strong>Inclusión Económica y Relevo Generacional:</strong> Aceleración de la competitividad operativa de <strong>+150 microemprendedores</strong> garantizando una focalización del <strong>75% en mujeres y jóvenes</strong> en 5 municipios rurales (Serrano, Zudáñez, Padilla, Yamparáez y Era Pampa) mediante estructuración de costos, estandarización e inocuidad alimentaria.</span>
+                        </li>
+                        <li class="flex items-start gap-2.5">
+                            <span class="w-1.5 h-1.5 rounded-full bg-planetary-500 mt-2 shrink-0"></span>
+                            <span><strong>Gobernanza Territorial y Formalización:</strong> Liderazgo en el relevamiento y actualización del catálogo turístico en <strong>23 de los 28 municipios (&gt;80%)</strong> —paralizado desde 2020— y centralización legal en Excel alcanzando un <strong>60% de regularización operativa sobre 183 unidades económicas</strong>.</span>
+                        </li>
+                        <li class="flex items-start gap-2.5">
+                            <span class="w-1.5 h-1.5 rounded-full bg-planetary-500 mt-2 shrink-0"></span>
+                            <span><strong>Gestión de Convocatorias y Certificación CAF:</strong> Identificación, caracterización y selección territorial en <strong>10 municipios</strong> logrando su certificación de sostenibilidad y calidad financiada por <strong>CAF</strong>, además de estructurar postulaciones competitivas al programa nacional <em>"200 años, 200 Destinos"</em> junto a la USFX.</span>
+                        </li>
+                        <li class="flex items-start gap-2.5">
+                            <span class="w-1.5 h-1.5 rounded-full bg-planetary-500 mt-2 shrink-0"></span>
+                            <span><strong>Articulación Comercial B2B y Digital (STW):</strong> Inserción comercial internacional y digital para <strong>40 unidades económicas locales</strong> en la plataforma asiática <em>Shake to Win (STW Innovation)</em>, vinculación con créditos del <strong>BDP y Pro Mujer</strong>, y participación en 3 ferias sectoriales.</span>
+                        </li>
+                        <li class="flex items-start gap-2.5">
+                            <span class="w-1.5 h-1.5 rounded-full bg-planetary-500 mt-2 shrink-0"></span>
+                            <span><strong>Incubación Verde en Era Pampa:</strong> Diagnóstico de potencialidades en campo que detonó el escalamiento de <strong>5 líneas de bionegocios</strong> (apicultura, ecoturismo, gastronomía tradicional, ciclismo y parapente).</span>
+                        </li>
+                        <li class="flex items-start gap-2.5">
+                            <span class="w-1.5 h-1.5 rounded-full bg-planetary-500 mt-2 shrink-0"></span>
+                            <span><strong>Transformación del Museo CETUR:</strong> Administración de ingresos/gastos, digitalización del registro de visitantes en Excel, apertura de TikTok/Facebook, ampliación de 1 a 3 pasantes (USFX/ENTEC) e innovación con experiencia sensorial en la Noche de Museos (<strong>+100 visitantes en una noche vs. 10–15 habitual</strong>).</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Rol 2: USFX & LATE Turismo -->
+                <div class="bg-white rounded-2xl p-6 card-shadow border border-slate-200 print-break-inside-avoid">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-2 border-b border-slate-100 pb-4 mb-4">
+                        <div>
+                            <div class="flex items-center gap-2">
+                                <span class="px-2.5 py-0.5 rounded bg-solar-100 text-solar-600 font-bold text-xs">Academia, Incubación & Articulación Multiactor</span>
+                                <span class="text-xs text-slate-400 font-medium">Sucre, Bolivia</span>
+                            </div>
+                            <h3 class="text-lg sm:text-xl font-display font-extrabold text-navy-800 mt-1">
+                                Docente y Facilitadora de Incubación – Gestión Empresarial, Emprendimiento y Coctelería
+                            </h3>
+                            <p class="text-sm font-semibold text-planetary-600">Universidad Mayor, Real y Pontificia de San Francisco Xavier de Chuquisaca (USFX)</p>
+                        </div>
+                        <div class="text-left md:text-right shrink-0">
+                            <span class="inline-block bg-navy-800 text-white text-xs font-display font-bold px-3 py-1.5 rounded-lg">2023 – 2024</span>
+                        </div>
+                    </div>
+                    <ul class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-3 text-xs sm:text-sm text-slate-700">
+                        <li class="flex items-start gap-2.5">
+                            <span class="w-1.5 h-1.5 rounded-full bg-solar-500 mt-2 shrink-0"></span>
+                            <span><strong>Impulso del Laboratorio LATE Turismo:</strong> Articulación interinstitucional entre <strong>HELVETAS/BETAS, BDP y USFX</strong> registrando entre 30 y 80 iniciativas; facilitación de metodologías ágiles (<em>Lean Startup, Business Model Canvas</em>) y seguimiento posterior clasificando al <strong>20% (16 emprendimientos)</strong> para etapa de aceleración.</span>
+                        </li>
+                        <li class="flex items-start gap-2.5">
+                            <span class="w-1.5 h-1.5 rounded-full bg-solar-500 mt-2 shrink-0"></span>
+                            <span><strong>Feria a la Inversa B2B & Expo CAINCO:</strong> Diseño y ejecución operativa de una "Feria a la Inversa" para <strong>15 unidades económicas</strong> en LATE Turismo y gestión de vitrina comercial junto a <strong>CAINCO</strong> para los 5 proyectos estudiantiles más avanzados.</span>
+                        </li>
+                        <li class="flex items-start gap-2.5">
+                            <span class="w-1.5 h-1.5 rounded-full bg-solar-500 mt-2 shrink-0"></span>
+                            <span><strong>Simulación Empresarial y Prototipado:</strong> Estructuración de <strong>11 planes de negocio</strong> en la asignatura de Gestión Empresarial incluyendo investigación de mercados con encuestas digitales, cartera preliminar de clientes y validación de prototipos.</span>
+                        </li>
+                        <li class="flex items-start gap-2.5">
+                            <span class="w-1.5 h-1.5 rounded-full bg-solar-500 mt-2 shrink-0"></span>
+                            <span><strong>Canalización de Crédito BDP y Mentoría en Bioeconomía:</strong> Vinculación técnica hacia líneas de desarrollo del <strong>BDP (hasta Bs 250.000)</strong> y acompañamiento directo a casos exitosos como <em>Tomamé Infusiones Gourmet</em>, <em>Casa de Campo La Campana</em>, <em>Chasqui Pachanguero (Turibus)</em>, <em>Sucre Aquí Artesanías</em> y <em>Licores Calavera</em>.</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Roles 3, 4 y 5 en Grid Compacto -->
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-5">
+                    
+                    <!-- Rol 3: Framinela -->
+                    <div class="bg-white rounded-2xl p-6 card-shadow border border-slate-200 flex flex-col justify-between print-break-inside-avoid">
+                        <div>
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="px-2.5 py-0.5 rounded bg-emerald-100 text-emerald-800 font-bold text-[11px]">Emprendimiento Propio</span>
+                                <span class="text-xs font-display font-bold text-navy-800">2019 – Presente</span>
+                            </div>
+                            <h3 class="text-base font-display font-extrabold text-navy-800">Gerente Operativa Comercial</h3>
+                            <p class="text-xs font-semibold text-planetary-600 mb-3">Framinela – Gastronomía y Catering</p>
+                            <ul class="space-y-2 text-xs text-slate-700">
+                                <li>• <strong>Escalamiento +400%:</strong> Aumento de 10 a 50 desayunos por campaña mediante estandarización de recetas, control de mermas y logística externa por rutas.</li>
+                                <li>• <strong>Capital Semilla y B2B:</strong> Top 3 en innovación municipal (<em>Sucre Chalita Lab</em>), servicio de catering para desayuno y almuerzo presidencial, y cadena inclusiva con proveedores jóvenes.</li>
+                                <li>• <strong>Colectivo Yanuk:</strong> Co-fundadora de la red gastronómica para ferias patrimoniales.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Rol 4: Banco de Crédito de Bolivia (BCP) -->
+                    <div class="bg-white rounded-2xl p-6 card-shadow border border-slate-200 flex flex-col justify-between print-break-inside-avoid">
+                        <div>
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="px-2.5 py-0.5 rounded bg-planetary-100 text-planetary-800 font-bold text-[11px]">Banca & Análisis Crediticio</span>
+                                <span class="text-xs font-display font-bold text-navy-800">2014 – 2019</span>
+                            </div>
+                            <h3 class="text-base font-display font-extrabold text-navy-800">Ejecutiva de Servicios Financieros y Colocación</h3>
+                            <p class="text-xs font-semibold text-planetary-600 mb-3">Banco de Crédito de Bolivia (BCP)</p>
+                            <ul class="space-y-2 text-xs text-slate-700">
+                                <li>• <strong>Metas Comerciales (~Bs 850k/mes):</strong> Administración y cumplimiento continuo de metas mensuales de ~Bs 500.000 en colocación de créditos y Bs 300.000–350.000 en captación de pasivos.</li>
+                                <li>• <strong>Evaluación Financiera B2B:</strong> Venta consultiva, análisis de flujo de caja, compra de deuda y estructuración de financiamiento para equipamiento médico corporativo (operaciones de hasta Bs 300.000).</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Rol 5: FUNPADESH -->
+                    <div class="bg-white rounded-2xl p-6 card-shadow border border-slate-200 flex flex-col justify-between print-break-inside-avoid">
+                        <div>
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="px-2.5 py-0.5 rounded bg-amber-100 text-amber-800 font-bold text-[11px]">Inclusión Social</span>
+                                <span class="text-xs font-display font-bold text-navy-800">Gestión 2019</span>
+                            </div>
+                            <h3 class="text-base font-display font-extrabold text-navy-800">Facilitadora de Emprendimiento y Desarrollo Inclusivo</h3>
+                            <p class="text-xs font-semibold text-planetary-600 mb-3">FUNPADESH</p>
+                            <ul class="space-y-2 text-xs text-slate-700">
+                                <li>• <strong>Formación Productiva Inclusiva:</strong> Facilitación de talleres prácticos en gastronomía y gestión de microemprendimientos familiares orientados a la autonomía económica de <strong>15 adolescentes y jóvenes con discapacidad</strong> o en situación de vulnerabilidad social.</li>
+                                <li>• Adaptación pedagógica basada en competencias prácticas y generación de ingresos propios.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 6: FORMACIÓN ACADÉMICA, COMPETENCIAS TÉCNICAS & 6 REFERENCIAS LABORALES -->
+        <section id="referencias" class="space-y-8 scroll-mt-20">
+            
+            <!-- Bloque de Formación Académica y Especialización -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                
+                <!-- Formación de Grado, Técnica y Posgrados (7 cols) -->
+                <div class="lg:col-span-7 bg-white rounded-2xl p-6 card-shadow border border-slate-200 space-y-5">
+                    <div class="border-b border-slate-100 pb-3">
+                        <span class="section-tag text-planetary-600">06 · Credenciales Académicas</span>
+                        <h3 class="text-xl font-display font-extrabold text-navy-800 mt-0.5">Formación de Grado, Técnica y Posgrados</h3>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-2.5">
+                            <span class="text-xs font-display font-bold uppercase text-navy-800 flex items-center gap-1.5">
+                                <i data-lucide="award" class="w-4 h-4 text-planetary-500"></i>
+                                Formación de Grado y Técnica
+                            </span>
+                            <ul class="space-y-2 text-xs text-slate-700">
+                                <li>
+                                    <strong class="text-navy-900 block">Licenciatura en Turismo (Mención Gestión Empresarial)</strong>
+                                    <span class="text-slate-500">Universidad San Francisco Xavier de Chuquisaca (USFX)</span>
+                                </li>
+                                <li>
+                                    <strong class="text-navy-900 block">Ciencias Económicas (En trámite de titulación)</strong>
+                                    <span class="text-slate-500">Universidad San Francisco Xavier de Chuquisaca (USFX)</span>
+                                </li>
+                                <li>
+                                    <strong class="text-navy-900 block">Técnico Auxiliar y Técnico Básico en Gastronomía</strong>
+                                    <span class="text-slate-500">Escuelas Gastronómicas MANQ'A</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-2.5">
+                            <span class="text-xs font-display font-bold uppercase text-navy-800 flex items-center gap-1.5">
+                                <i data-lucide="book-open-check" class="w-4 h-4 text-solar-600"></i>
+                                Posgrados y Especialización Empresarial
+                            </span>
+                            <ul class="space-y-1.5 text-xs text-slate-700">
+                                <li>• <strong>Dip. en Innovación y Emprendimiento Gastronómico</strong> – UNIVALLE (2024)</li>
+                                <li>• <strong>Dip. en Gastronomía para Centros de Educ. Alternativa</strong> – UAP (2026)</li>
+                                <li>• <strong>Dip. en Educación Superior Basada en Competencias</strong> – UPEA (2022)</li>
+                                <li>• <strong>Programa de Incubación Sucre Chalita Lab</strong> (Canvas, Pitch, Costos) – GAM Sucre</li>
+                                <li>• <strong>1.ª Escuela de Habilidades Blandas y Empresariales</strong> – FEPCH / Actívate</li>
+                                <li>• <strong>Capacitación Asociación Sendas Bolivia / Conexiones Gastronómicas</strong> (2023)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Competencias Técnicas e Idiomas (5 cols) -->
+                <div class="lg:col-span-5 bg-white rounded-2xl p-6 card-shadow border border-slate-200 flex flex-col justify-between space-y-4">
+                    <div>
+                        <div class="border-b border-slate-100 pb-3 mb-4">
+                            <span class="section-tag text-planetary-600">Herramientas & Destrezas</span>
+                            <h3 class="text-xl font-display font-extrabold text-navy-800 mt-0.5">Competencias Técnicas e Idiomas</h3>
+                        </div>
+
+                        <div class="space-y-3 text-xs">
+                            <div>
+                                <span class="font-bold text-navy-900 block mb-1.5">Metodologías de Incubación y Negocio:</span>
+                                <div class="flex flex-wrap gap-1.5">
+                                    <span class="px-2.5 py-1 rounded-md bg-planetary-50 text-planetary-600 font-semibold border border-planetary-100">Business Model Canvas</span>
+                                    <span class="px-2.5 py-1 rounded-md bg-planetary-50 text-planetary-600 font-semibold border border-planetary-100">Lean Startup</span>
+                                    <span class="px-2.5 py-1 rounded-md bg-planetary-50 text-planetary-600 font-semibold border border-planetary-100">Prototipado & Validación</span>
+                                    <span class="px-2.5 py-1 rounded-md bg-planetary-50 text-planetary-600 font-semibold border border-planetary-100">Elevator Pitch</span>
+                                    <span class="px-2.5 py-1 rounded-md bg-planetary-50 text-planetary-600 font-semibold border border-planetary-100">Capital Semilla</span>
+                                </div>
+                            </div>
+
+                            <div>
+                                <span class="font-bold text-navy-900 block mb-1.5">Finanzas, Costos y Gestión Comercial:</span>
+                                <div class="flex flex-wrap gap-1.5">
+                                    <span class="px-2.5 py-1 rounded-md bg-slate-100 text-navy-800 font-semibold">Estructuración de Costos</span>
+                                    <span class="px-2.5 py-1 rounded-md bg-slate-100 text-navy-800 font-semibold">Control de Mermas</span>
+                                    <span class="px-2.5 py-1 rounded-md bg-slate-100 text-navy-800 font-semibold">Análisis Crediticio B2B/PyME</span>
+                                    <span class="px-2.5 py-1 rounded-md bg-slate-100 text-navy-800 font-semibold">Feria a la Inversa</span>
+                                    <span class="px-2.5 py-1 rounded-md bg-slate-100 text-navy-800 font-semibold">Excel Operativo & MEAL</span>
+                                    <span class="px-2.5 py-1 rounded-md bg-slate-100 text-navy-800 font-semibold">TikTok / IG / WhatsApp Business</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-navy-800 text-white p-4 rounded-xl flex items-center justify-between text-xs">
+                        <div>
+                            <span class="text-solar-500 font-bold uppercase block text-[10px]">Idiomas</span>
+                            <span class="font-semibold">Español (Nativo) · Inglés (Intermedio) · Portugués (Básico)</span>
+                        </div>
+                        <i data-lucide="languages" class="w-5 h-5 text-planetary-400 shrink-0"></i>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- 6 Referencias Laborales Verificables -->
+            <div class="bg-white rounded-2xl p-6 sm:p-8 card-shadow border border-slate-200 print-break-inside-avoid">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-200 pb-4 mb-6">
+                    <div>
+                        <span class="section-tag text-planetary-600">Respaldo Institucional</span>
+                        <h3 class="text-xl sm:text-2xl font-display font-extrabold text-navy-800 mt-0.5">
+                            Referencias Laborales Verificables
+                        </h3>
+                    </div>
+                    <span class="text-xs bg-emerald-50 text-emerald-700 border border-emerald-200 px-3 py-1 rounded-full font-semibold">
+                        6 Contactos Directos de Cooperación, Estado, Academia y Banca
+                    </span>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <!-- Ref 1 -->
+                    <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 hover:border-planetary-400 transition flex flex-col justify-between">
+                        <div>
+                            <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-planetary-100 text-planetary-700">Cooperación Internacional</span>
+                            <h4 class="font-display font-bold text-navy-900 text-sm mt-2">Lic. Andrea Lescano</h4>
+                            <p class="text-xs text-slate-600 font-medium">Coordinadora de Proyectos Educativos</p>
+                            <p class="text-xs text-navy-800 font-bold mt-0.5">HELVETAS Swiss Intercooperation</p>
+                        </div>
+                        <a href="tel:+59168622312" class="mt-3 pt-2.5 border-t border-slate-200 flex items-center justify-between text-xs font-semibold text-planetary-600 hover:text-navy-900">
+                            <span>Cel: +591 68622312</span>
+                            <i data-lucide="phone-call" class="w-3.5 h-3.5"></i>
+                        </a>
+                    </div>
+
+                    <!-- Ref 2 -->
+                    <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 hover:border-planetary-400 transition flex flex-col justify-between">
+                        <div>
+                            <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-navy-800 text-solar-500">Gobierno Departamental</span>
+                            <h4 class="font-display font-bold text-navy-900 text-sm mt-2">Ambrocio Ilafaya</h4>
+                            <p class="text-xs text-slate-600 font-medium">Jefe Departamental de Turismo</p>
+                            <p class="text-xs text-navy-800 font-bold mt-0.5">Gobernación de Chuquisaca</p>
+                        </div>
+                        <a href="tel:+59172855733" class="mt-3 pt-2.5 border-t border-slate-200 flex items-center justify-between text-xs font-semibold text-planetary-600 hover:text-navy-900">
+                            <span>Cel: +591 72855733</span>
+                            <i data-lucide="phone-call" class="w-3.5 h-3.5"></i>
+                        </a>
+                    </div>
+
+                    <!-- Ref 3 -->
+                    <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 hover:border-planetary-400 transition flex flex-col justify-between">
+                        <div>
+                            <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-solar-100 text-solar-600">Academia Superior</span>
+                            <h4 class="font-display font-bold text-navy-900 text-sm mt-2">Lic. José Fernández</h4>
+                            <p class="text-xs text-slate-600 font-medium">Director Carrera de Turismo y Gastronomía</p>
+                            <p class="text-xs text-navy-800 font-bold mt-0.5">Universidad San Francisco Xavier (USFX)</p>
+                        </div>
+                        <a href="tel:+59171155856" class="mt-3 pt-2.5 border-t border-slate-200 flex items-center justify-between text-xs font-semibold text-planetary-600 hover:text-navy-900">
+                            <span>Cel: +591 71155856</span>
+                            <i data-lucide="phone-call" class="w-3.5 h-3.5"></i>
+                        </a>
+                    </div>
+
+                    <!-- Ref 4 -->
+                    <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 hover:border-planetary-400 transition flex flex-col justify-between">
+                        <div>
+                            <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-navy-800 text-solar-500">Gestión Pública Territorial</span>
+                            <h4 class="font-display font-bold text-navy-900 text-sm mt-2">Peter Nuñez</h4>
+                            <p class="text-xs text-slate-600 font-medium">Técnico I – Dirección Dptal. de Turismo</p>
+                            <p class="text-xs text-navy-800 font-bold mt-0.5">Gobernación de Chuquisaca</p>
+                        </div>
+                        <a href="tel:+59177135394" class="mt-3 pt-2.5 border-t border-slate-200 flex items-center justify-between text-xs font-semibold text-planetary-600 hover:text-navy-900">
+                            <span>Cel: +591 77135394</span>
+                            <i data-lucide="phone-call" class="w-3.5 h-3.5"></i>
+                        </a>
+                    </div>
+
+                    <!-- Ref 5 -->
+                    <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 hover:border-planetary-400 transition flex flex-col justify-between">
+                        <div>
+                            <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-emerald-100 text-emerald-800">Sector Financiero Bancario</span>
+                            <h4 class="font-display font-bold text-navy-900 text-sm mt-2">Juan Pablo Montalvo</h4>
+                            <p class="text-xs text-slate-600 font-medium">Jefe Operativo</p>
+                            <p class="text-xs text-navy-800 font-bold mt-0.5">Banco de Crédito de Bolivia (BCP)</p>
+                        </div>
+                        <a href="tel:+59160305428" class="mt-3 pt-2.5 border-t border-slate-200 flex items-center justify-between text-xs font-semibold text-planetary-600 hover:text-navy-900">
+                            <span>Cel: +591 60305428</span>
+                            <i data-lucide="phone-call" class="w-3.5 h-3.5"></i>
+                        </a>
+                    </div>
+
+                    <!-- Ref 6 -->
+                    <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 hover:border-planetary-400 transition flex flex-col justify-between">
+                        <div>
+                            <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-solar-100 text-solar-600">Evaluación de Proyectos</span>
+                            <h4 class="font-display font-bold text-navy-900 text-sm mt-2">Lic. Gabriela Contreras</h4>
+                            <p class="text-xs text-slate-600 font-medium">Verificadora de Proyectos, Evaluadora y Docente</p>
+                            <p class="text-xs text-navy-800 font-bold mt-0.5">Carrera de Turismo – USFX</p>
+                        </div>
+                        <a href="tel:+59170287074" class="mt-3 pt-2.5 border-t border-slate-200 flex items-center justify-between text-xs font-semibold text-planetary-600 hover:text-navy-900">
+                            <span>Cel: +591 70287074</span>
+                            <i data-lucide="phone-call" class="w-3.5 h-3.5"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- PIE DE PÁGINA EJECUTIVO -->
+    <footer class="bg-navy-900 text-slate-300 border-t-4 border-solar-500 mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+            <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+                <div>
+                    <h3 class="font-display font-extrabold text-white text-lg uppercase">Tatiana Kassandra Pérez Gonzales</h3>
+                    <p class="text-xs text-planetary-400 font-medium mt-0.5">
+                        Gestora de Ecosistemas de Emprendimiento y Desarrollo Territorial · La Paz / Chuquisaca, Bolivia
+                    </p>
+                </div>
+                <div class="flex flex-wrap items-center gap-3 no-print">
+                    <a href="https://wa.me/59167629053" target="_blank" rel="noopener noreferrer" class="px-4 py-2 rounded-lg bg-solar-500 hover:bg-solar-600 text-navy-950 font-display font-bold text-xs transition flex items-center gap-1.5">
+                        <i data-lucide="message-circle" class="w-4 h-4"></i> WhatsApp (+591 67629053)
+                    </a>
+                    <button onclick="copyToClipboard('tkpg614@gmail.com', 'Correo copiado al portapapeles')" class="px-4 py-2 rounded-lg bg-navy-800 hover:bg-navy-700 text-white border border-navy-600 font-semibold text-xs transition flex items-center gap-1.5">
+                        <i data-lucide="mail" class="w-4 h-4 text-planetary-400"></i> tkpg614@gmail.com
+                    </button>
+                    <button onclick="window.print()" class="px-4 py-2 rounded-lg bg-navy-800 hover:bg-navy-700 text-slate-200 border border-navy-600 font-semibold text-xs transition flex items-center gap-1.5">
+                        <i data-lucide="printer" class="w-4 h-4 text-solar-500"></i> Imprimir / PDF
+                    </button>
+                </div>
+            </div>
+            <div class="border-t border-navy-800 mt-6 pt-6 flex flex-col sm:flex-row justify-between text-[11px] text-slate-400">
+                <span>Portafolio Ejecutivo estructurado bajo el Marco de Gestión de Programas y Desarrollo Económico Local (DEL).</span>
+                <span>Disponibilidad inmediata para viajes e intervención territorial.</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- LÓGICA INTERACTIVA Y BASE DE DATOS DE LOS 15 EMPRENDIMIENTOS (MATRIZ DEL) -->
+    <script>
+        // Base de datos completa de los 15 emprendimientos asistidos/articulados por Tatiana Pérez en Sucre y Chuquisaca
+        const venturesData = [
+            {
+                id: 1,
+                name: "Comunidad de Era Pampa",
+                location: "Municipio de Yamparáez (Subcentralía de Escana, a 40 min de Sucre)",
+                node: "RURAL",
+                nodeLabel: "Nodo Rural / Valles",
+                sector: "TURISMO",
+                category: "Turismo Comunitario, Vivencial y Agroturismo",
+                score: 17,
+                variables: {
+                    cultural: "Estructural",
+                    innovacion: "Media-Alta",
+                    empleo: "Estructural",
+                    urbanoRural: "Estructural",
+                    agro: "Estructural",
+                    jovenesMujeres: "Estructural"
+                },
+                intervention: "Priorización y visita de diagnóstico en campo liderada por Tatiana; identificación fotográfica y técnica de atractivos, capacitación in situ y detonación de 5 líneas de bionegocios (apicultura comunal, gastronomía tradicional con hornos de barro y sopa de algarrobo thako lawa, frutales, ciclismo y parapente).",
+                description: "Articula a las comunidades de la Subcentralía de Escana conectando el flujo emisor de Sucre con la economía campesina de Yamparáez, con fuerte liderazgo de mujeres en recetarios ancestrales y jóvenes como guías locales para frenar la migración."
+            },
+            {
+                id: 2,
+                name: "Moledoras de la Ruta Turística del Ají",
+                location: "Municipio de Padilla (Conectado a Villa Serrano, Tarabuco y Sucre)",
+                node: "RURAL",
+                nodeLabel: "Nodo Rural / Valles",
+                sector: "GASTRO",
+                category: "Procesamiento Agroalimentario y Turismo Gastronómico",
+                score: 17,
+                variables: {
+                    cultural: "Estructural",
+                    innovacion: "Media-Alta",
+                    empleo: "Estructural",
+                    urbanoRural: "Estructural",
+                    agro: "Estructural",
+                    jovenesMujeres: "Estructural"
+                },
+                intervention: "Coordinación y facilitación de capacitación y asistencia técnica municipal en Padilla; diseño del componente gastronómico (inocuidad alimentaria, optimización de costos, uso de insumos locales y atención al cliente) fortaleciendo a mujeres procesadoras de ají nativo.",
+                description: "Mujeres e iniciativas familiares dedicadas a hidratar y moler en piedra y molinos más de 45 variedades de ají chuquisaqueño, proveedoras estructurales de las Picanterías Patrimoniales de Sucre y eje de la Feria y Ruta del Ají."
+            },
+            {
+                id: 3,
+                name: "El Picantongo",
+                location: "Calle Aniceto Arce Nº 280, Ciudad de Sucre",
+                node: "URBANO",
+                nodeLabel: "Nodo Urbano Sucre",
+                sector: "GASTRO",
+                category: "Gastronomía Tradicional e Innovación Culinaria",
+                score: 16,
+                variables: {
+                    cultural: "Estructural",
+                    innovacion: "Media-Alta",
+                    empleo: "Media-Alta",
+                    urbanoRural: "Estructural",
+                    agro: "Estructural",
+                    jovenesMujeres: "Estructural"
+                },
+                intervention: "Asistencia y articulación dentro del ecosistema gastronómico y de emprendimiento de Sucre, fortaleciendo la estandarización culinaria y vinculación con ferias y espacios promocionales.",
+                description: "Restaurante especializado en la fusión de platos emblemáticos de Sucre (combinación de picantes tradicionales y mondongo chuquisaqueño), demandante directo de ají de Padilla, maíz y especias rurales, e impulsado por jóvenes profesionales y mujeres cocineras."
+            },
+            {
+                id: 4,
+                name: "Tomamé Infusiones Gourmet",
+                location: "Ciudad de Sucre y red de abastecimiento en Valles de Chuquisaca",
+                node: "RURAL",
+                nodeLabel: "Vínculo Urbano-Rural",
+                sector: "GASTRO",
+                category: "Agroindustria de Especialidad y Herbolaria Nativa",
+                score: 16,
+                variables: {
+                    cultural: "Media-Alta",
+                    innovacion: "Estructural",
+                    empleo: "Media-Alta",
+                    urbanoRural: "Estructural",
+                    agro: "Estructural",
+                    jovenesMujeres: "Estructural"
+                },
+                intervention: "Mentoría directa de Tatiana en el desarrollo de contenidos sobre plantas medicinales, técnicas de secado, combinación de hierbas (blending), estructura básica de costos, envasado y creación de marca comercial.",
+                description: "Transforma hierbas medicinales y aromáticas andino-vallunas tradicionalmente vendidas a granel en infusiones gourmet deshidratadas y estandarizadas de alto valor agregado, articulando recolectoras rurales con el mercado urbano."
+            },
+            {
+                id: 5,
+                name: "El Viejo Molino",
+                location: "Entorno Histórico y Valluno de Sucre, Chuquisaca",
+                node: "RURAL",
+                nodeLabel: "Vínculo Urbano-Rural",
+                sector: "GASTRO",
+                category: "Agroturismo Patrimonial y Transformación Alimentaria",
+                score: 15,
+                variables: {
+                    cultural: "Estructural",
+                    innovacion: "Media-Alta",
+                    empleo: "Media-Alta",
+                    urbanoRural: "Estructural",
+                    agro: "Estructural",
+                    jovenesMujeres: "Media-Alta"
+                },
+                intervention: "Acompañamiento técnico y articulación promocional integrando el recorrido interpretativo patrimonial con la transformación gastronómica de insumos regionales.",
+                description: "Hibridación de recorrido por arquitectura hidráulica/colonial de molienda con la transformación de cosechas frutales de los valles chuquisaqueños y café molido, reduciendo pérdidas post-cosecha."
+            },
+            {
+                id: 6,
+                name: "La Casa del Mate",
+                location: "Calle Bolívar Nº 13, Municipio de Padilla (a 160 km de Sucre)",
+                node: "RURAL",
+                nodeLabel: "Nodo Rural / Padilla",
+                sector: "CULTURA",
+                category: "Museo Temático, Bodega Tradicional y Gastronomía",
+                score: 15,
+                variables: {
+                    cultural: "Estructural",
+                    innovacion: "Media-Alta",
+                    empleo: "Media-Alta",
+                    urbanoRural: "Estructural",
+                    agro: "Estructural",
+                    jovenesMujeres: "Media-Alta"
+                },
+                intervention: "Asistencia técnica y relevamiento en el corredor turístico Sucre–Padilla, fortaleciendo la articulación de atractivos culturales y gastronómicos municipales.",
+                description: "Repositorio privado de mates/tutumas y bodega artesanal de chicha charque (bebida emblemática de maíz criollo con hasta 6 años de maceración) que dinamiza el flujo de excursionistas hacia Padilla."
+            },
+            {
+                id: 7,
+                name: "Chasqui Pachanguero (Turibus)",
+                location: "Ciudad de Sucre (Salida Plaza 25 de Mayo)",
+                node: "URBANO",
+                nodeLabel: "Nodo Urbano Sucre",
+                sector: "CULTURA",
+                category: "Transporte Turístico Temático y Entretenimiento Cultural",
+                score: 14,
+                variables: {
+                    cultural: "Estructural",
+                    innovacion: "Estructural",
+                    empleo: "Estructural",
+                    urbanoRural: "Complementaria",
+                    agro: "Complementaria",
+                    jovenesMujeres: "Estructural"
+                },
+                intervention: "Orientación académica y técnica de Tatiana en la estructuración de rutas y servicios turísticos estudiantiles, cuya propuesta validada en pasantía derivó en el servicio diurno y nocturno Chasqui Pachanguero.",
+                description: "Autobús y carroza turística con música folclórica, danza, guiaje bilingüe y sinergia con la economía nocturna y gastronómica de Sucre, generando empleo intensivo para jóvenes guías, bailarines y animadores."
+            },
+            {
+                id: 8,
+                name: "Casa de Campo La Campana",
+                location: "Municipio de Yotala (a 15–20 min al sur de Sucre)",
+                node: "RURAL",
+                nodeLabel: "Nodo Rural / Yotala",
+                sector: "TURISMO",
+                category: "Turismo Rural, Gastronomía Criolla y Hospitalidad",
+                score: 14,
+                variables: {
+                    cultural: "Media-Alta",
+                    innovacion: "Media-Alta",
+                    empleo: "Media-Alta",
+                    urbanoRural: "Estructural",
+                    agro: "Estructural",
+                    jovenesMujeres: "Media-Alta"
+                },
+                intervention: "Diseño y estructuración por parte de Tatiana de una experiencia turística integral de jornada completa en Yotala (preparación participativa de comida boliviana, degustación y recreación), adoptada por la propietaria para diversificar su modelo de fin de semana.",
+                description: "Complejo de campiña que descongestiona el flujo turístico de Sucre hacia el valle de Yotala con abastecimiento de kilómetro cero (granjas avícolas, lecherías y huertos locales)."
+            },
+            {
+                id: 9,
+                name: "Licores Calavera",
+                location: "Ciudad de Sucre (Circuito Cultural y Nocturno)",
+                node: "URBANO",
+                nodeLabel: "Nodo Urbano Sucre",
+                sector: "GASTRO",
+                category: "Mixología, Destilados Artesanales Botánicos",
+                score: 14,
+                variables: {
+                    cultural: "Media-Alta",
+                    innovacion: "Estructural",
+                    empleo: "Media-Alta",
+                    urbanoRural: "Media-Alta",
+                    agro: "Media-Alta",
+                    jovenesMujeres: "Estructural"
+                },
+                intervention: "Formación técnica impartida por Tatiana en elaboración artesanal de licores y macerados botánicos, además de gestionar la vinculación laboral y comercial directa del emprendedor con el responsable de Full Tap.",
+                description: "Elaboración artesanal de licores de alta graduación basados en la tríada botánica de ajenjo (Artemisia absinthium), anís e hinojo cultivados en parcelas rurales de los valles chuquisaqueños."
+            },
+            {
+                id: 10,
+                name: "Comunidad de Poroma",
+                location: "Municipio de Poroma, Provincia Oropeza (Corredor Sucre – Toro Toro)",
+                node: "RURAL",
+                nodeLabel: "Nodo Rural / Poroma",
+                sector: "TURISMO",
+                category: "Turismo Comunitario, Cultural y Arqueológico",
+                score: 13,
+                variables: {
+                    cultural: "Estructural",
+                    innovacion: "Media-Alta",
+                    empleo: "Media-Alta",
+                    urbanoRural: "Estructural",
+                    agro: "Complementaria",
+                    jovenesMujeres: "Media-Alta"
+                },
+                intervention: "Relevamiento territorial municipal, actualización de inventario de atractivos (necrópolis Mojocoya, aguas termales de Cera Cera, iglesias de Diosera) y asistencia para postulaciones y articulación departamental.",
+                description: "Quinto municipio más poblado de Chuquisaca cuyas 'Culturas Vivas' fueron declaradas Patrimonio Cultural Inmaterial de Bolivia en 2025, con alto protagonismo de mujeres tejedoras y guías comunitarios."
+            },
+            {
+                id: 11,
+                name: "Framinela",
+                location: "Ciudad de Sucre (Alcance Metropolitano e Interdepartamental)",
+                node: "URBANO",
+                nodeLabel: "Nodo Urbano Sucre",
+                sector: "GASTRO",
+                category: "Gastronomía de Eventos, Catering y Repostería Personalizada",
+                score: 13,
+                variables: {
+                    cultural: "Media-Alta",
+                    innovacion: "Media-Alta",
+                    empleo: "Media-Alta",
+                    urbanoRural: "Media-Alta",
+                    agro: "Media-Alta",
+                    jovenesMujeres: "Estructural"
+                },
+                intervention: "Unidad económica fundada y dirigida por Tatiana Pérez desde 2019: estandarización de recetas y costos, reducción de mermas, escalamiento del +400% (de 10 a 50 desayunos/campaña), Top 3 en Sucre Chalita Lab, catering para desayuno y almuerzo presidencial, y co-fundación del colectivo Yanuk.",
+                description: "Integra una cadena de suministro inclusiva comprando insumos artesanales a microemprendimientos juveniles locales y frutos/lácteos de los valles cercanos (Yotala y Yamparáez), con fuerte posicionamiento en TikTok e Instagram."
+            },
+            {
+                id: 12,
+                name: "Mi Río",
+                location: "Cuencas de los Ríos Pilcomayo y Río Grande, Chuquisaca",
+                node: "RURAL",
+                nodeLabel: "Nodo Rural / Cuencas",
+                sector: "TURISMO",
+                category: "Turismo de Aventura, Kayak y Conservación Fluvial",
+                score: 13,
+                variables: {
+                    cultural: "Media-Alta",
+                    innovacion: "Estructural",
+                    empleo: "Media-Alta",
+                    urbanoRural: "Estructural",
+                    agro: "Complementaria",
+                    jovenesMujeres: "Media-Alta"
+                },
+                intervention: "Participación y acompañamiento en procesos de estructuración de pitch e incentivos de capital semilla vinculados a HELVETAS para turismo de aventura en cañones fluviales.",
+                description: "Emprendimiento juvenil de expediciones en kayak y aguas bravas que rompe la estacionalidad del turismo colonial en Sucre y lleva gasto directo a comunidades ribereñas bajo una tesis de conservación ambiental."
+            },
+            {
+                id: 13,
+                name: "Museo CETUR",
+                location: "Calle San Alberto Nº 413 (Casa Capellánica), Sucre",
+                node: "URBANO",
+                nodeLabel: "Nodo Urbano Sucre",
+                sector: "CULTURA",
+                category: "Museo Antropológico, Etnográfico y Centro de Turismo Comunitario",
+                score: 13,
+                variables: {
+                    cultural: "Estructural",
+                    innovacion: "Media-Alta",
+                    empleo: "Complementaria",
+                    urbanoRural: "Estructural",
+                    agro: "Complementaria",
+                    jovenesMujeres: "Estructural"
+                },
+                intervention: "Administrado directamente por Tatiana: gestión de ingresos y cierres mensuales, digitalización de visitantes en Excel (país, edad, sexo), creación de cuentas en Facebook y TikTok, gestión de 3 pasantes por turnos (USFX/ENTEC), talleres de invierno e innovación sensorial en la Noche de Museos (+100 visitantes en una noche vs. 10–15 habitual).",
+                description: "Museo-puente en el centro histórico de Sucre que visibiliza la cosmovisión y textilería de las naciones originarias Yampara y Jalq'a, canalizando turistas urbanos hacia las comunidades rurales."
+            },
+            {
+                id: 14,
+                name: "Sucre Aquí Artesanías",
+                location: "Ciudad de Sucre",
+                node: "URBANO",
+                nodeLabel: "Nodo Urbano Sucre",
+                sector: "CULTURA",
+                category: "Artesanía Contemporánea y Souvenirs con Identidad",
+                score: 13,
+                variables: {
+                    cultural: "Estructural",
+                    innovacion: "Media-Alta",
+                    empleo: "Media-Alta",
+                    urbanoRural: "Media-Alta",
+                    agro: "Complementaria",
+                    jovenesMujeres: "Estructural"
+                },
+                intervention: "Mentoría de Tatiana orientando la propuesta de valor hacia la identidad local sucrense y articulando a los emprendedores con proveedores textiles de Santa Cruz y aliados estratégicos (Full Zap) hasta lograr prototipado, marca y stock inicial.",
+                description: "Traduce la iconografía colonial y los motivos textiles tradicionales de Chuquisaca en souvenirs y prendas contemporáneas de venta directa al turista nacional e internacional."
+            },
+            {
+                id: 15,
+                name: "Alojamiento El Pescador",
+                location: "Calle 6 de Agosto, Municipio de Villa Serrano",
+                node: "RURAL",
+                nodeLabel: "Nodo Rural / Serrano",
+                sector: "TURISMO",
+                category: "Hotelería y Hospitalidad Regional en la Ruta del Ají",
+                score: 9,
+                variables: {
+                    cultural: "Media-Alta",
+                    innovacion: "Complementaria",
+                    empleo: "Complementaria",
+                    urbanoRural: "Media-Alta",
+                    agro: "Complementaria",
+                    jovenesMujeres: "Media-Alta"
+                },
+                intervention: "Capacitación y asistencia técnica municipal facilitada por Tatiana en Villa Serrano en estándares de hospitalidad, atención al cliente, costos y articulación de servicios turísticos.",
+                description: "Infraestructura habilitadora de hospedaje familiar en Villa Serrano (cuna del maestro del charango Mauro Núñez), indispensable para la pernoctación en el corredor Sucre–Padilla–Villa Serrano."
+            }
+        ];
+
+        let currentNodeFilter = 'ALL';
+        let currentViewMode = 'CARDS';
+
+        function getBadgeClasses(level) {
+            if (level === 'Estructural') {
+                return 'bg-planetary-600 text-white font-bold';
+            } else if (level === 'Media-Alta') {
+                return 'bg-planetary-100 text-planetary-600 font-semibold border border-planetary-200';
+            }
+            return 'bg-slate-100 text-slate-600 font-medium';
+        }
+
+        function setNodeFilter(node) {
+            currentNodeFilter = node;
+            ['ALL', 'RURAL', 'URBANO'].forEach(n => {
+                const btn = document.getElementById('btn-node-' + n);
+                if (n === node) {
+                    btn.className = 'px-3 py-1.5 rounded-lg text-xs font-bold transition bg-navy-800 text-white shadow-sm';
+                } else {
+                    btn.className = 'px-3 py-1.5 rounded-lg text-xs font-bold transition bg-white text-slate-700 hover:bg-slate-200 border border-slate-200';
+                }
+            });
+            filterVentures();
+        }
+
+        function setViewMode(mode) {
+            currentViewMode = mode;
+            const cardsContainer = document.getElementById('ventures-cards-container');
+            const tableContainer = document.getElementById('ventures-table-container');
+            const btnCards = document.getElementById('btn-view-CARDS');
+            const btnTable = document.getElementById('btn-view-TABLE');
+
+            if (mode === 'CARDS') {
+                cardsContainer.classList.remove('hidden');
+                tableContainer.classList.add('hidden');
+                btnCards.className = 'px-2.5 py-1 rounded-md text-xs font-bold bg-planetary-500 text-white transition flex items-center gap-1';
+                btnTable.className = 'px-2.5 py-1 rounded-md text-xs font-bold text-slate-600 hover:text-navy-900 transition flex items-center gap-1';
+            } else {
+                cardsContainer.classList.add('hidden');
+                tableContainer.classList.remove('hidden');
+                btnTable.className = 'px-2.5 py-1 rounded-md text-xs font-bold bg-planetary-500 text-white transition flex items-center gap-1';
+                btnCards.className = 'px-2.5 py-1 rounded-md text-xs font-bold text-slate-600 hover:text-navy-900 transition flex items-center gap-1';
+            }
+        }
+
+        function filterVentures() {
+            const sector = document.getElementById('sector-select').value;
+            const query = document.getElementById('venture-search').value.toLowerCase().trim();
+
+            const filtered = venturesData.filter(v => {
+                const matchNode = currentNodeFilter === 'ALL' || v.node === currentNodeFilter;
+                const matchSector = sector === 'ALL' || v.sector === sector;
+                const matchQuery = !query ||
+                    v.name.toLowerCase().includes(query) ||
+                    v.location.toLowerCase().includes(query) ||
+                    v.category.toLowerCase().includes(query) ||
+                    v.intervention.toLowerCase().includes(query);
+                return matchNode && matchSector && matchQuery;
+            });
+
+            renderVentures(filtered);
+        }
+
+        function renderVentures(list) {
+            const cardsContainer = document.getElementById('ventures-cards-container');
+            const tableBody = document.getElementById('ventures-table-body');
+
+            if (list.length === 0) {
+                cardsContainer.innerHTML = `
+                    <div class="col-span-full py-12 text-center bg-slate-50 rounded-xl border border-dashed border-slate-300">
+                        <p class="text-sm font-bold text-navy-800">No se encontraron emprendimientos con los filtros seleccionados.</p>
+                        <button onclick="resetFilters()" class="mt-2 px-4 py-1.5 bg-planetary-500 text-white text-xs font-bold rounded-lg">Restablecer filtros</button>
+                    </div>
+                `;
+                tableBody.innerHTML = `<tr><td colspan="9" class="py-8 text-center text-slate-500">Sin resultados para este filtro.</td></tr>`;
+                return;
+            }
+
+            // Render Cards
+            cardsContainer.innerHTML = list.map(v => {
+                const nodeBadge = v.node === 'RURAL'
+                    ? 'bg-emerald-100 text-emerald-800 border-emerald-200'
+                    : 'bg-amber-100 text-amber-800 border-amber-200';
+
+                return `
+                    <div onclick="openVentureModal(${v.id})" class="bg-white rounded-xl p-5 border border-slate-200 card-shadow card-hover cursor-pointer flex flex-col justify-between group">
+                        <div>
+                            <div class="flex items-center justify-between gap-2 mb-2.5">
+                                <span class="text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full border ${nodeBadge}">
+                                    ${v.nodeLabel}
+                                </span>
+                                <span class="text-xs font-display font-extrabold px-2.5 py-0.5 rounded bg-navy-800 text-solar-500">
+                                    DEL: ${v.score}/18
+                                </span>
+                            </div>
+
+                            <h3 class="text-base font-display font-extrabold text-navy-900 group-hover:text-planetary-600 transition">
+                                ${v.name}
+                            </h3>
+                            <p class="text-xs font-semibold text-planetary-600 mt-0.5">${v.category}</p>
+                            <p class="text-[11px] text-slate-500 mt-1 flex items-center gap-1">
+                                <span>📍 ${v.location}</span>
+                            </p>
+
+                            <div class="mt-3 pt-3 border-t border-slate-100">
+                                <span class="text-[10px] font-bold uppercase tracking-wider text-navy-800 block mb-1">Aporte de Tatiana Pérez:</span>
+                                <p class="text-xs text-slate-700 line-clamp-3 leading-relaxed">
+                                    ${v.intervention}
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between">
+                            <div class="flex flex-wrap gap-1">
+                                <span class="text-[10px] px-2 py-0.5 rounded ${getBadgeClasses(v.variables.urbanoRural)}">Urb-Rural: ${v.variables.urbanoRural}</span>
+                                <span class="text-[10px] px-2 py-0.5 rounded ${getBadgeClasses(v.variables.jovenesMujeres)}">Jóvenes/Mujeres: ${v.variables.jovenesMujeres}</span>
+                            </div>
+                            <span class="text-xs font-bold text-planetary-600 group-hover:translate-x-1 transition inline-flex items-center">
+                                Ficha →
+                            </span>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            // Render Table
+            tableBody.innerHTML = list.map(v => `
+                <tr onclick="openVentureModal(${v.id})" class="hover:bg-planetary-50/70 cursor-pointer transition">
+                    <td class="py-3 px-4">
+                        <div class="font-display font-bold text-navy-900">${v.name}</div>
+                        <div class="text-[11px] text-slate-500">${v.nodeLabel} · ${v.category}</div>
+                    </td>
+                    <td class="py-3 px-2 text-center"><span class="px-2 py-0.5 rounded text-[10px] ${getBadgeClasses(v.variables.cultural)}">${v.variables.cultural}</span></td>
+                    <td class="py-3 px-2 text-center"><span class="px-2 py-0.5 rounded text-[10px] ${getBadgeClasses(v.variables.innovacion)}">${v.variables.innovacion}</span></td>
+                    <td class="py-3 px-2 text-center"><span class="px-2 py-0.5 rounded text-[10px] ${getBadgeClasses(v.variables.empleo)}">${v.variables.empleo}</span></td>
+                    <td class="py-3 px-2 text-center"><span class="px-2 py-0.5 rounded text-[10px] ${getBadgeClasses(v.variables.urbanoRural)}">${v.variables.urbanoRural}</span></td>
+                    <td class="py-3 px-2 text-center"><span class="px-2 py-0.5 rounded text-[10px] ${getBadgeClasses(v.variables.agro)}">${v.variables.agro}</span></td>
+                    <td class="py-3 px-2 text-center"><span class="px-2 py-0.5 rounded text-[10px] ${getBadgeClasses(v.variables.jovenesMujeres)}">${v.variables.jovenesMujeres}</span></td>
+                    <td class="py-3 px-3 text-center font-display font-extrabold text-navy-800">${v.score}<span class="text-slate-400 font-normal">/18</span></td>
+                    <td class="py-3 px-3 text-center no-print">
+                        <button class="px-2.5 py-1 bg-navy-800 hover:bg-planetary-600 text-white rounded text-[10px] font-bold transition">Ver</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function resetFilters() {
+            document.getElementById('sector-select').value = 'ALL';
+            document.getElementById('venture-search').value = '';
+            setNodeFilter('ALL');
+        }
+
+        function openVentureModal(id) {
+            const v = venturesData.find(item => item.id === id);
+            if (!v) return;
+
+            document.getElementById('modal-node').textContent = v.nodeLabel;
+            document.getElementById('modal-score').textContent = `Puntaje DEL: ${v.score} / 18 pts`;
+            document.getElementById('modal-title').textContent = v.name;
+            document.getElementById('modal-category').textContent = v.category;
+            document.getElementById('modal-location').textContent = v.location;
+            document.getElementById('modal-intervention').textContent = v.intervention;
+            document.getElementById('modal-description').textContent = v.description;
+
+            const labelsMap = [
+                { key: 'cultural', label: 'Revalorización Cultural' },
+                { key: 'innovacion', label: 'Innovación de Producto/Modelo' },
+                { key: 'empleo', label: 'Generación de Empleo' },
+                { key: 'urbanoRural', label: 'Vinculación Urbano-Rural' },
+                { key: 'agro', label: 'Sistemas Agroalimentarios' },
+                { key: 'jovenesMujeres', label: 'Liderazgo Jóvenes y Mujeres' }
+            ];
+
+            document.getElementById('modal-variables').innerHTML = labelsMap.map(item => {
+                const val = v.variables[item.key];
+                return `
+                    <div class="flex items-center justify-between p-2.5 rounded-lg bg-slate-50 border border-slate-200 text-xs">
+                        <span class="font-semibold text-navy-900">${item.label}</span>
+                        <span class="px-2 py-0.5 rounded text-[10px] ${getBadgeClasses(val)}">${val}</span>
+                    </div>
+                `;
+            }).join('');
+
+            const modal = document.getElementById('venture-modal');
+            modal.classList.remove('hidden');
+        }
+
+        function closeVentureModal() {
+            document.getElementById('venture-modal').classList.add('hidden');
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        // Función segura para copiar al portapapeles compatible con entornos iFrame
+        function copyToClipboard(text, message) {
+            const textArea = document.createElement("textarea");
+            textArea.value = text;
+            textArea.style.position = "fixed";
+            textArea.style.left = "-9999px";
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            try {
+                document.execCommand('copy');
+                showToast(message || 'Copiado al portapapeles');
+            } catch (err) {
+                showToast('Correo: ' + text);
+            }
+            document.body.removeChild(textArea);
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toast-message');
+            toastMsg.textContent = msg;
+            toast.classList.remove('hidden', 'translate-y-2', 'opacity-0');
+            setTimeout(() => {
+                toast.classList.add('translate-y-2', 'opacity-0');
+                setTimeout(() => toast.classList.add('hidden'), 300);
+            }, 3000);
+        }
+
+        // Cerrar modal con tecla Escape o clic fuera
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeVentureModal();
+        });
+        document.getElementById('venture-modal').addEventListener('click', (e) => {
+            if (e.target.id === 'venture-modal') closeVentureModal();
+        });
+
+        // Inicialización al cargar la página
+        window.addEventListener('DOMContentLoaded', () => {
+            renderVentures(venturesData);
+            if (window.lucide) {
+                lucide.createIcons();
+            }
+        });
+    </script>
+</body>
+</html>
